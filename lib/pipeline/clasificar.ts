@@ -23,7 +23,12 @@ export const ClasificacionSchema = z.object({
   categoria: z.enum(CATEGORIAS),
   urgencia: z.enum(URGENCIAS),
   ambito: z.enum(AMBITOS),
-  unidad_mencionada: z.string().min(1).nullable(),
+  // El modelo puede devolver "" en vez de null para "sin unidad"; lo
+  // normalizamos en lugar de descartar una clasificación por lo demás válida.
+  unidad_mencionada: z
+    .string()
+    .nullable()
+    .transform((v) => (v && v.length > 0 ? v : null)),
   resumen: z.string().min(1),
   emergencia: z.boolean(),
   confianza: z.number().min(0).max(1),

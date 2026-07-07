@@ -102,13 +102,22 @@ export async function emitirOrdenDeTrabajo(
     telefonoEnmascarado: vecino ? maskPhone(vecino.telefono) : null,
   });
 
-  await supabase
+  // Completar el texto ahora que conocemos el número. Si falla, la OT sin
+  // texto no debe quedar: se borra y se propaga el error (fase 1: mover todo
+  // esto a una función SQL transaccional).
+  const { error: errorTexto } = await supabase
     .from("work_orders")
     .update({ texto_enviado: textoEnviado })
     .eq("id", creada.id);
+  if (errorTexto) {
+    await supabase.from("work_orders").delete().eq("id", creada.id);
+    throw new Error(
+      `No se pudo guardar el texto de la orden de trabajo: ${errorTexto.message}`,
+    );
+  }
 
   const ahora = new Date().toISOString();
-  await supabase.from("claim_events").insert({
+  const { error: errorEvento } = await supabase.from("claim_events").insert({
     administration_id: claim.administration_id,
     claim_id: claim.id,
     tipo: "ot_creada",
@@ -116,23 +125,29 @@ export async function emitirOrdenDeTrabajo(
     actor,
     created_at: ahora,
   });
+  if (errorEvento) {
+    throw new Error(
+      `${creada.numero_publico} se creó pero no se registró su evento: ${errorEvento.message}`,
+    );
+  }
 
   // Si el reclamo seguía en "recibido", la emisión lo pone en gestión.
+  const actualizacion: TablesUpdate<"claims"> = { ultima_actividad_at: ahora };
   if (claim.estado === "recibido") {
     const transicion = aplicarTransicion("recibido", "en_gestion", actor);
-    const actualizacion: TablesUpdate<"claims"> = {
-      estado: transicion.estado,
-      ultima_actividad_at: ahora,
-    };
+    actualizacion.estado = transicion.estado;
     if (transicion.timestampColumna) {
       (actualizacion as Record<string, string>)[transicion.timestampColumna] = ahora;
     }
-    await supabase.from("claims").update(actualizacion).eq("id", claim.id);
-  } else {
-    await supabase
-      .from("claims")
-      .update({ ultima_actividad_at: ahora })
-      .eq("id", claim.id);
+  }
+  const { error: errorClaimUpdate } = await supabase
+    .from("claims")
+    .update(actualizacion)
+    .eq("id", claim.id);
+  if (errorClaimUpdate) {
+    throw new Error(
+      `${creada.numero_publico} se creó pero no se actualizó el reclamo: ${errorClaimUpdate.message}`,
+    );
   }
 
   return {
