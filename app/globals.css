@@ -1,22 +1,53 @@
 @import "tailwindcss";
 
 /*
- * Tokens del sistema Ventanilla, extraídos de design-reference/.
- * La paleta completa de componentes se consolida en la tanda 2;
- * acá viven la base tipográfica y los fondos globales.
+ * Sistema de diseño de Ventanilla. Todos los valores están extraídos de
+ * design-reference/ (exports de Claude Design); no se redefinen de memoria.
  */
 :root {
+  /* Superficies y tinta */
   --papel: #f7f5f0;
   --superficie: #ffffff;
   --superficie-suave: #faf9f5;
   --borde: #e5e1d8;
+  --borde-suave: #f0ede6;
   --tinta: #1c2b26;
   --tinta-2: #5c6660;
   --tinta-3: #8a928d;
+
+  /* Verde de marca */
   --primario: #1e4d3f;
   --primario-hover: #16382e;
   --primario-suave: #e3ede7;
   --primario-suave-2: #f6faf7;
+
+  /* Chips de estado: fondo y texto */
+  --estado-recibido-bg: #eef1ef;
+  --estado-recibido-fg: #3f4a45;
+  --estado-gestion-bg: #fdf0dc;
+  --estado-gestion-fg: #92600a;
+  --estado-asignado-bg: #e3ede7;
+  --estado-asignado-fg: #1e4d3f;
+  --estado-resuelto-bg: #dcefe2;
+  --estado-resuelto-fg: #17603b;
+  --estado-cerrado-bg: #e8e6df;
+  --estado-cerrado-fg: #6b7370;
+  --estado-reabierto-bg: #fbe3e0;
+  --estado-reabierto-fg: #a3352b;
+  --estado-derivado-bg: #ece8f3;
+  --estado-derivado-fg: #5b4e7a;
+
+  /* Urgencias: color del punto */
+  --urgencia-urgente: #a3352b;
+  --urgencia-alta: #c97a10;
+  --urgencia-media: #8a928d;
+  --urgencia-baja: #c6ccc8;
+
+  /* Acentos varios */
+  --chip-demo-bg: #fdf0dc;
+  --chip-demo-fg: #92600a;
+  --leader-dots: #c9c3b4;
+  --fila-urgente: rgba(251, 227, 224, 0.4);
 }
 
 @theme inline {
@@ -24,6 +55,7 @@
   --color-superficie: var(--superficie);
   --color-superficie-suave: var(--superficie-suave);
   --color-borde: var(--borde);
+  --color-borde-suave: var(--borde-suave);
   --color-tinta: var(--tinta);
   --color-tinta-2: var(--tinta-2);
   --color-tinta-3: var(--tinta-3);
@@ -31,6 +63,7 @@
   --color-primario-hover: var(--primario-hover);
   --color-primario-suave: var(--primario-suave);
   --color-primario-suave-2: var(--primario-suave-2);
+
   --font-sans: var(--font-public-sans), system-ui, sans-serif;
   --font-display: var(--font-space-grotesk), sans-serif;
   --font-mono: var(--font-space-mono), monospace;
@@ -40,10 +73,74 @@ body {
   background: var(--papel);
   color: var(--tinta);
   font-family: var(--font-public-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 input::placeholder,
 textarea::placeholder {
   color: var(--tinta-3);
   opacity: 1;
+}
+
+/* Foco visible en todos los interactivos: anillo 2px verde, offset 2. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--primario);
+  outline-offset: 2px;
+}
+
+/* Animaciones contenidas: 200 ms, ease-out, sin rebote. */
+@keyframes vtn-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes vtn-dot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
+.vtn-anim-in {
+  animation: vtn-fade 200ms ease-out;
+}
+
+/* Items de navegación del sidebar: hover e ítem activo. */
+.vtn-nav-item {
+  color: var(--tinta-2);
+  background: transparent;
+}
+.vtn-nav-item:hover {
+  background: var(--papel);
+  color: var(--tinta);
+}
+.vtn-nav-item[aria-current="page"] {
+  background: var(--primario-suave);
+  color: var(--primario);
+}
+
+/* Fila de la bandeja de reclamos: hover sutil. */
+.vtn-fila-reclamo:hover {
+  background: var(--superficie-suave);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

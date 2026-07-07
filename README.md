@@ -112,6 +112,15 @@ inconsistente; acá quedan para no re-litigarlas.
     Buenos Aires, parte del timeline de R-1044 queda en el futuro; la
     interfaz clampea los relativos negativos a "recién". El reset diario se
     agenda de madrugada.
+13. **Ticket con recuadro completo.** El brief describía el ticket con
+    "borde izquierdo 1.5px dashed", pero el export lo dibuja con
+    `border:1.5px dashed #1E4D3F` en los cuatro lados (recuadro). Se replicó
+    el export. En la tabla el número va como texto plano mono, sin recuadro.
+14. **Styleguide.** `/styleguide` (fuera de la navegación) muestra todos los
+    componentes y, al pie, incrusta los cuatro HTML del export en iframes
+    para comparar lado a lado. Esos iframes cargan su runtime (React) desde
+    un CDN, así que necesitan conexión; sin red quedan en blanco. Los
+    componentes propios se ven siempre.
 
 ## Pendientes de Fase 1
 
