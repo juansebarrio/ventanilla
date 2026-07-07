@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+/*
+ * Tokens del sistema Ventanilla, extraídos de design-reference/.
+ * La paleta completa de componentes se consolida en la tanda 2;
+ * acá viven la base tipográfica y los fondos globales.
+ */
+:root {
+  --papel: #f7f5f0;
+  --superficie: #ffffff;
+  --superficie-suave: #faf9f5;
+  --borde: #e5e1d8;
+  --tinta: #1c2b26;
+  --tinta-2: #5c6660;
+  --tinta-3: #8a928d;
+  --primario: #1e4d3f;
+  --primario-hover: #16382e;
+  --primario-suave: #e3ede7;
+  --primario-suave-2: #f6faf7;
+}
+
+@theme inline {
+  --color-papel: var(--papel);
+  --color-superficie: var(--superficie);
+  --color-superficie-suave: var(--superficie-suave);
+  --color-borde: var(--borde);
+  --color-tinta: var(--tinta);
+  --color-tinta-2: var(--tinta-2);
+  --color-tinta-3: var(--tinta-3);
+  --color-primario: var(--primario);
+  --color-primario-hover: var(--primario-hover);
+  --color-primario-suave: var(--primario-suave);
+  --color-primario-suave-2: var(--primario-suave-2);
+  --font-sans: var(--font-public-sans), system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), sans-serif;
+  --font-mono: var(--font-space-mono), monospace;
+}
+
+body {
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--font-public-sans), system-ui, sans-serif;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--tinta-3);
+  opacity: 1;
+}

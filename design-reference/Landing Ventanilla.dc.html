@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#F7F5F0;color:#1C2B26;font-family:'Public Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#1E4D3F}a:hover{color:#16382E}
+input::placeholder,textarea::placeholder{color:#8A928D;opacity:1}
+@keyframes vtnfade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes vtndot{0%,60%,100%{opacity:0.25}30%{opacity:1}}
+</style>
+</helmet>
+<div style="min-width:1440px;background:#F7F5F0">
+
+  <nav data-screen-label="Nav" style="position:sticky;top:0;z-index:50;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:68px;padding:0 44px;background:rgba(247,245,240,0.94);backdrop-filter:blur(8px);border-bottom:1px solid #E5E1D8">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="width:28px;height:28px;background:#1E4D3F;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px">V</span>
+      <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.01em">Ventanilla</span>
+    </div>
+    <span style="background:#FDF0DC;color:#92600A;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:4px 10px;border-radius:4px">CASO DE ESTUDIO</span>
+    <div style="display:flex;justify-content:flex-end">
+      <a href="#contacto" style="display:inline-flex;align-items:center;height:40px;padding:0 18px;border-radius:8px;background:#1E4D3F;color:#FFFFFF;font-size:14px;font-weight:500;text-decoration:none" style-hover="background:#16382E">Hablemos</a>
+    </div>
+  </nav>
+
+  <section data-screen-label="Hero" style="position:relative;padding:104px 44px 120px;overflow:hidden">
+    <sc-if value="{{ marcaAgua }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute;left:50%;top:64px;transform:translateX(-50%) rotate(4deg);width:400px;padding:26px 32px;border:1.5px dashed rgba(30,77,63,0.16);border-radius:10px;pointer-events:none">
+        <span style="display:block;font-size:10px;font-weight:600;letter-spacing:0.1em;color:rgba(28,43,38,0.13)">COMPROBANTE DE RECLAMO</span>
+        <span style="display:block;font-family:'Space Mono',monospace;font-weight:700;font-size:52px;color:rgba(30,77,63,0.09);line-height:1.2">R-1044</span>
+      </div>
+    </sc-if>
+    <div style="position:relative;max-width:880px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:28px">
+      <h1 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:64px;line-height:1.05;letter-spacing:-0.01em;text-wrap:balance">Cada reclamo respondido en minutos. <span style="color:#1E4D3F">Con número de seguimiento.</span></h1>
+      <p style="margin:0;max-width:540px;font-size:18px;line-height:28px;color:#5C6660;text-wrap:pretty">Ventanilla atiende los reclamos de tus consorcios por WhatsApp, los clasifica, emite la orden de trabajo y mantiene al vecino al tanto. Sin apps que nadie descarga.</p>
+      <div style="display:flex;gap:12px">
+        <a href="#simulador" style="display:inline-flex;align-items:center;height:40px;padding:0 20px;border-radius:8px;background:#1E4D3F;color:#FFFFFF;font-size:14px;font-weight:500;text-decoration:none" style-hover="background:#16382E">Probá el simulador</a>
+        <a href="#contacto" style="display:inline-flex;align-items:center;height:40px;padding:0 20px;border-radius:8px;background:#FFFFFF;border:1px solid #E5E1D8;color:#1C2B26;font-size:14px;font-weight:500;text-decoration:none" style-hover="background:#F7F5F0">Hablemos</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="simulador" data-screen-label="Simulador" style="padding:0 44px 120px">
+    <div style="max-width:1160px;margin:0 auto">
+      <span style="display:block;text-align:center;font-size:12px;font-weight:600;letter-spacing:0.06em;color:#1E4D3F;margin-bottom:20px">SIMULADOR</span>
+      <div style="position:relative;background:#FFFFFF;border:1px solid #E5E1D8;border-radius:10px;padding:36px;display:grid;grid-template-columns:1fr 96px 1fr;align-items:stretch">
+
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:12px;font-weight:600;letter-spacing:0.06em;color:#8A928D">VOS ESCRIBÍS</span>
+          <div style="flex:1;display:flex;flex-direction:column;border:1px solid #E5E1D8;border-radius:10px;overflow:hidden">
+            <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:#FFFFFF;border-bottom:1px solid #E5E1D8">
+              <span style="width:24px;height:24px;background:#1E4D3F;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px">V</span>
+              <span style="display:flex;flex-direction:column">
+                <span style="font-size:13px;font-weight:600">Ventanilla</span>
+                <span style="font-size:11px;color:#8A928D">Yerbal 1240</span>
+              </span>
+            </div>
+            <div ref="{{ chatRef }}" style="flex:1;min-height:340px;max-height:380px;overflow-y:auto;background:#F7F5F0;padding:16px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;align-self:flex-end;max-width:85%">
+                <div style="background:#E3EDE7;border-radius:10px 10px 4px 10px;padding:10px 13px">
+                  <p style="margin:0;font-size:14px;line-height:21px">Hola, se rompió la cerradura de la puerta de entrada y quedó sin llave</p>
+                </div>
+                <span style="font-family:'Space Mono',monospace;font-size:10.5px;color:#8A928D;padding-right:2px">11:24</span>
+              </div>
+              <div id="sim-respuesta" style="display:flex;flex-direction:column;align-items:flex-start;gap:4px;max-width:85%">
+                <div style="background:#FFFFFF;border:1px solid #D4E3DA;border-radius:10px 10px 10px 4px;padding:10px 13px">
+                  <p style="margin:0;font-size:14px;line-height:21px">Hola. Registré tu reclamo por la cerradura de la puerta de entrada (Yerbal 1240). Tu número de seguimiento es <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:12.5px;color:#1E4D3F">R-1048</span>. Por tratarse de un tema de seguridad lo marcamos con prioridad alta. Te avisamos apenas el cerrajero confirme la visita.</p>
+                </div>
+                <span style="font-family:'Space Mono',monospace;font-size:10.5px;color:#8A928D;padding-left:2px">11:24</span>
+              </div>
+              <sc-for list="{{ mensajes }}" as="m" hint-placeholder-count="0">
+                <sc-if value="{{ m.propio }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;align-self:flex-end;max-width:85%;animation:vtnfade 0.25s ease">
+                    <div style="background:#E3EDE7;border-radius:10px 10px 4px 10px;padding:10px 13px">
+                      <p style="margin:0;font-size:14px;line-height:21px">{{ m.texto }}</p>
+                    </div>
+                    <span style="font-family:'Space Mono',monospace;font-size:10.5px;color:#8A928D;padding-right:2px">{{ m.hora }}</span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ m.ajeno }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;align-items:flex-start;gap:4px;max-width:85%;animation:vtnfade 0.25s ease">
+                    <div style="background:#FFFFFF;border:1px solid #D4E3DA;border-radius:10px 10px 10px 4px;padding:10px 13px">
+                      <p style="margin:0;font-size:14px;line-height:21px">{{ m.pre }}<span style="font-family:'Space Mono',monospace;font-weight:700;font-size:12.5px;color:#1E4D3F">{{ m.num }}</span>{{ m.post }}</p>
+                    </div>
+                    <span style="font-family:'Space Mono',monospace;font-size:10.5px;color:#8A928D;padding-left:2px">{{ m.hora }}</span>
+                  </div>
+                </sc-if>
+              </sc-for>
+              <sc-if value="{{ escribiendo }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:5px;background:#FFFFFF;border:1px solid #D4E3DA;border-radius:10px 10px 10px 4px;padding:12px 14px;width:fit-content">
+                  <span style="width:6px;height:6px;border-radius:50%;background:#8A928D;animation:vtndot 1.1s infinite"></span>
+                  <span style="width:6px;height:6px;border-radius:50%;background:#8A928D;animation:vtndot 1.1s infinite;animation-delay:0.18s"></span>
+                  <span style="width:6px;height:6px;border-radius:50%;background:#8A928D;animation:vtndot 1.1s infinite;animation-delay:0.36s"></span>
+                </div>
+              </sc-if>
+            </div>
+            <div style="display:flex;gap:8px;padding:12px;background:#FFFFFF;border-top:1px solid #E5E1D8">
+              <input ref="{{ inputRef }}" onKeyDown="{{ alTeclear }}" type="text" placeholder="Escribí tu reclamo, mandá foto o audio" style="flex:1;height:40px;border:1px solid #E5E1D8;border-radius:8px;background:#F7F5F0;padding:0 14px;font-family:'Public Sans',sans-serif;font-size:14px;font-weight:500;color:#1C2B26;outline:none" style-focus="border-color:#1E4D3F;box-shadow:0 0 0 3px #E3EDE7;background:#FFFFFF">
+              <button onClick="{{ enviar }}" title="Enviar" style="width:40px;height:40px;min-width:40px;border:none;border-radius:8px;background:#1E4D3F;color:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:#16382E">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div style="position:relative">
+          <svg width="96" height="40" viewBox="0 0 96 40" fill="none" style="position:absolute;left:0;top:47%">
+            <path d="M6 20 H 78" stroke="#1E4D3F" stroke-width="1.5" stroke-dasharray="4 5" opacity="0.55"></path>
+            <path d="M72 13 L 82 20 L 72 27" stroke="#1E4D3F" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"></path>
+          </svg>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:12px;font-weight:600;letter-spacing:0.06em;color:#8A928D">LA ADMINISTRACIÓN VE</span>
+          <div style="flex:1;background:#F7F5F0;border:1px solid #E5E1D8;border-radius:10px;padding:20px;display:flex;flex-direction:column;justify-content:center">
+
+            <sc-if value="{{ cardBase }}" hint-placeholder-val="{{ true }}">
+              <div style="background:#FFFFFF;border:1px solid #E5E1D8;border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:12px">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+                  <span style="display:inline-flex;align-items:center;padding:7px 12px;background:#FFFFFF;border:1.5px dashed #1E4D3F;border-radius:8px;font-family:'Space Mono',monospace;font-weight:700;font-size:13px;color:#1E4D3F">R-1048</span>
+                  <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8A928D">hace 1 min</span>
+                </div>
+                <span style="font-size:15px;font-weight:500;line-height:21px">Cerradura de la puerta de entrada rota, sin llave</span>
+                <span style="font-size:13px;color:#5C6660">Yerbal 1240 · Ámbito común</span>
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                  <span style="background:#F7F5F0;border:1px solid #E5E1D8;color:#5C6660;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:4px 10px;border-radius:4px">SEGURIDAD Y ACCESOS</span>
+                  <span style="background:#EEF1EF;color:#3F4A45;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:4px 10px;border-radius:4px">RECIBIDO</span>
+                  <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#C97A10;display:inline-block"></span><span style="font-size:12px;font-weight:600;color:#5C6660">Alta</span></span>
+                </div>
+                <button style="height:40px;border:none;border-radius:8px;background:#1E4D3F;color:#FFFFFF;font-family:'Public Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer" style-hover="background:#16382E">Emitir orden de trabajo</button>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ cardNueva }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#FFFFFF;border:1px solid #E5E1D8;border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:12px;animation:vtnfade 0.35s ease">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+                  <span style="display:inline-flex;align-items:center;padding:7px 12px;background:#FFFFFF;border:1.5px dashed #1E4D3F;border-radius:8px;font-family:'Space Mono',monospace;font-weight:700;font-size:13px;color:#1E4D3F">{{ nuevoNumero }}</span>
+                  <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8A928D">recién</span>
+                </div>
+                <span style="font-size:15px;font-weight:500;line-height:21px">{{ nuevoResumen }}</span>
+                <span style="font-size:13px;color:#5C6660">Yerbal 1240 · Ámbito común</span>
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                  <span style="background:#F7F5F0;border:1px solid #E5E1D8;color:#5C6660;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:4px 10px;border-radius:4px">{{ nuevaCategoria }}</span>
+                  <span style="background:#EEF1EF;color:#3F4A45;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:4px 10px;border-radius:4px">RECIBIDO</span>
+                  <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:{{ nuevaUrgColor }};display:inline-block"></span><span style="font-size:12px;font-weight:600;color:#5C6660">{{ nuevaUrgencia }}</span></span>
+                </div>
+                <button style="height:40px;border:none;border-radius:8px;background:#1E4D3F;color:#FFFFFF;font-family:'Public Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer" style-hover="background:#16382E">Emitir orden de trabajo</button>
+              </div>
+            </sc-if>
+
+          </div>
+        </div>
+
+      </div>
+      <p style="margin:18px 0 0;text-align:center;font-size:14px;color:#5C6660">El simulador usa el sistema real. Solo cambia el canal.</p>
+    </div>
+  </section>
+
+  <section data-screen-label="Cómo funciona" style="padding:0 44px 120px">
+    <div style="max-width:1160px;margin:0 auto">
+      <span style="display:block;text-align:center;font-size:12px;font-weight:600;letter-spacing:0.06em;color:#1E4D3F;margin-bottom:36px">CÓMO FUNCIONA</span>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px">
+        <div style="border-top:2px dashed #D8D2C4;padding-top:22px;display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:40px;line-height:1;color:#1E4D3F">1</span>
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:19px;line-height:26px">El vecino escribe.</span>
+          <span style="font-size:14px;line-height:21px;color:#5C6660">Texto, audio o foto, por WhatsApp.</span>
+        </div>
+        <div style="border-top:2px dashed #D8D2C4;padding-top:22px;display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:40px;line-height:1;color:#1E4D3F">2</span>
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:19px;line-height:26px">Recibe su número.</span>
+          <span style="font-size:14px;line-height:21px;color:#5C6660">En segundos, con el reclamo ya clasificado.</span>
+        </div>
+        <div style="border-top:2px dashed #D8D2C4;padding-top:22px;display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:40px;line-height:1;color:#1E4D3F">3</span>
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:19px;line-height:26px">Sale la orden de trabajo.</span>
+          <span style="font-size:14px;line-height:21px;color:#5C6660">El proveedor recibe el detalle y las fotos.</span>
+        </div>
+        <div style="border-top:2px dashed #D8D2C4;padding-top:22px;display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:40px;line-height:1;color:#1E4D3F">4</span>
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:19px;line-height:26px">Nadie pregunta qué pasó.</span>
+          <span style="font-size:14px;line-height:21px;color:#5C6660">Cada novedad le llega al vecino sola.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Para administraciones" style="background:#1C2B26;padding:96px 44px">
+    <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.15fr 1fr;gap:72px;align-items:center">
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:40px;line-height:1.15;color:#F7F5F0;letter-spacing:-0.01em;text-wrap:balance">La reputación de una administración se mide en tiempo de respuesta.</h2>
+        <p style="margin:0;max-width:460px;font-size:16px;line-height:26px;color:rgba(247,245,240,0.75);text-wrap:pretty">Los consorcios no cambian de administración por precio: cambian porque nadie contesta. Ventanilla convierte tu punto más débil en tu mejor argumento.</p>
+      </div>
+      <div style="display:flex;flex-direction:column">
+        <div style="border-top:1px solid rgba(247,245,240,0.16);padding:20px 0;display:flex;flex-direction:column;gap:6px">
+          <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:36px;line-height:1;color:#FFFFFF">38 s</span>
+          <span style="font-size:13px;font-weight:600;letter-spacing:0.06em;color:rgba(247,245,240,0.6)">PRIMERA RESPUESTA</span>
+        </div>
+        <div style="border-top:1px solid rgba(247,245,240,0.16);padding:20px 0;display:flex;flex-direction:column;gap:6px">
+          <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:36px;line-height:1;color:#FFFFFF">2,1 días</span>
+          <span style="font-size:13px;font-weight:600;letter-spacing:0.06em;color:rgba(247,245,240,0.6)">RESOLUCIÓN PROMEDIO</span>
+        </div>
+        <div style="border-top:1px solid rgba(247,245,240,0.16);border-bottom:1px solid rgba(247,245,240,0.16);padding:20px 0;display:flex;flex-direction:column;gap:6px">
+          <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:36px;line-height:1;color:#FFFFFF">0</span>
+          <span style="font-size:13px;font-weight:600;letter-spacing:0.06em;color:rgba(247,245,240,0.6)">RECLAMOS SIN REGISTRAR</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Franja de honestidad" style="border-top:2px dashed #D8D2C4;border-bottom:2px dashed #D8D2C4;padding:52px 44px">
+    <p style="margin:0 auto;max-width:660px;text-align:center;font-size:15px;line-height:24px;color:#5C6660"><span style="font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:17px;color:#1C2B26">Administración Iribarne no existe.</span> Es el caso de estudio con el que mostramos Ventanilla funcionando de punta a punta. La clasificación, los números de seguimiento y los avisos son reales.</p>
+  </section>
+
+  <section id="contacto" data-screen-label="Cierre" style="padding:120px 44px 110px">
+    <div style="max-width:680px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:28px">
+      <h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:40px;line-height:1.15;letter-spacing:-0.01em;text-wrap:balance">Ventanilla se instala con tu número y tu cartera de edificios.</h2>
+      <div style="display:flex;align-items:center;gap:20px">
+        <a href="mailto:hola@js80.studio" style="display:inline-flex;align-items:center;height:40px;padding:0 20px;border-radius:8px;background:#1E4D3F;color:#FFFFFF;font-size:14px;font-weight:500;text-decoration:none" style-hover="background:#16382E">Hablemos</a>
+        <a href="mailto:hola@js80.studio" style="font-family:'Space Mono',monospace;font-size:14px;color:#1E4D3F;text-decoration:none" style-hover="text-decoration:underline">hola@js80.studio</a>
+      </div>
+    </div>
+  </section>
+
+  <footer data-screen-label="Footer" style="border-top:1px solid #E5E1D8;padding:26px 44px">
+    <div style="max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <span style="font-size:13px;color:#5C6660">Ventanilla · Un producto de JS80, estudio de soluciones digitales</span>
+      <span style="font-family:'Space Mono',monospace;font-size:13px;color:#5C6660">js80.studio</span>
+      <span style="background:#FDF0DC;color:#92600A;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:4px 10px;border-radius:4px">CASO DE ESTUDIO</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;marcaAgua&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;velocidadRespuesta&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1400,&quot;min&quot;:400,&quot;max&quot;:4000,&quot;step&quot;:100,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Simulador&quot;}}">
+class Component extends DCLogic {
+  state = { mensajes: [], escribiendo: false, proximo: 1049, nuevo: null };
+
+  constructor(props) {
+    super(props);
+    this.inputRef = React.createRef();
+    this.chatRef = React.createRef();
+  }
+
+  componentWillUnmount() { if (this._t) clearTimeout(this._t); }
+
+  componentDidUpdate() {
+    const el = this.chatRef.current;
+    if (el && this.state.mensajes.length + (this.state.escribiendo ? 1 : 0) !== this._n) {
+      this._n = this.state.mensajes.length + (this.state.escribiendo ? 1 : 0);
+      el.scrollTop = el.scrollHeight;
+    }
+  }
+
+  horaAhora() {
+    const d = new Date();
+    return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+  }
+
+  clasificar(texto) {
+    const s = texto.toLowerCase();
+    let r;
+    if (/ascensor/.test(s)) r = { cat: 'ASCENSOR', frase: 'ascensor', urg: 'Urgente' };
+    else if (/cerradura|puerta|llave|portón|porton|reja|entrada/.test(s)) r = { cat: 'SEGURIDAD Y ACCESOS', frase: 'seguridad y accesos', urg: 'Alta' };
+    else if (/filtra|humedad|mancha/.test(s)) r = { cat: 'FILTRACIONES Y HUMEDAD', frase: 'filtraciones y humedad', urg: 'Alta' };
+    else if (/agua|pérdida|perdida|caño|cano|gotea|inunda/.test(s)) r = { cat: 'PLOMERÍA Y PÉRDIDAS', frase: 'plomería y pérdidas', urg: 'Alta' };
+    else if (/luz|lámpara|lampara|eléctric|electric|enchufe|palier/.test(s)) r = { cat: 'ELECTRICIDAD', frase: 'electricidad', urg: 'Media' };
+    else if (/ruido|fiesta|música|musica|taladro|molest/.test(s)) r = { cat: 'RUIDOS Y CONVIVENCIA', frase: 'ruidos y convivencia', urg: 'Media' };
+    else if (/limpi|sucio|sucios|basura|vidrio/.test(s)) r = { cat: 'LIMPIEZA', frase: 'limpieza', urg: 'Baja' };
+    else if (/expensa|comprobante|pago|factura|recibo/.test(s)) r = { cat: 'ADMINISTRATIVO', frase: 'administrativo', urg: 'Baja' };
+    else r = { cat: 'MANTENIMIENTO GENERAL', frase: 'mantenimiento general', urg: 'Media' };
+    if (/urgente|peligro|gas|atrapad|incendio|chispa|corto/.test(s)) r.urg = 'Urgente';
+    return r;
+  }
+
+  mandar() {
+    const el = this.inputRef.current;
+    if (!el || !el.value.trim() || this.state.escribiendo) return;
+    const texto = el.value.trim();
+    el.value = '';
+    const num = 'R-' + this.state.proximo;
+    const c = this.clasificar(texto);
+    this.setState({
+      mensajes: [...this.state.mensajes, { propio: true, ajeno: false, texto: texto, hora: this.horaAhora() }],
+      escribiendo: true
+    });
+    const espera = this.props.velocidadRespuesta ?? 1400;
+    this._t = setTimeout(() => {
+      const urgFrase = c.urg === 'Urgente' ? 'urgente' : c.urg.toLowerCase();
+      const resumen = texto.charAt(0).toUpperCase() + texto.slice(1);
+      this.setState({
+        escribiendo: false,
+        proximo: this.state.proximo + 1,
+        mensajes: [...this.state.mensajes, {
+          propio: false, ajeno: true, hora: this.horaAhora(),
+          pre: 'Hola. Registré tu reclamo en Yerbal 1240. Tu número de seguimiento es ',
+          num: num,
+          post: '. Lo clasificamos como ' + c.frase + ' con prioridad ' + urgFrase + '. Te avisamos apenas haya novedades.'
+        }],
+        nuevo: {
+          numero: num,
+          resumen: resumen.length > 88 ? resumen.slice(0, 85) + '…' : resumen,
+          cat: c.cat,
+          urg: c.urg,
+          urgColor: { 'Urgente': '#A3352B', 'Alta': '#C97A10', 'Media': '#8A928D', 'Baja': '#C6CCC8' }[c.urg]
+        }
+      });
+    }, espera);
+  }
+
+  renderVals() {
+    const s = this.state;
+    return {
+      marcaAgua: this.props.marcaAgua ?? true,
+      mensajes: s.mensajes,
+      escribiendo: s.escribiendo,
+      inputRef: this.inputRef,
+      chatRef: this.chatRef,
+      enviar: () => this.mandar(),
+      alTeclear: (e) => { if (e.key === 'Enter') this.mandar(); },
+      cardBase: !s.nuevo,
+      cardNueva: !!s.nuevo,
+      nuevoNumero: s.nuevo ? s.nuevo.numero : '',
+      nuevoResumen: s.nuevo ? s.nuevo.resumen : '',
+      nuevaCategoria: s.nuevo ? s.nuevo.cat : '',
+      nuevaUrgencia: s.nuevo ? s.nuevo.urg : '',
+      nuevaUrgColor: s.nuevo ? s.nuevo.urgColor : '#8A928D'
+    };
+  }
+}
+</script>
+</body>
+</html>
