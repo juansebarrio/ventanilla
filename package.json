@@ -16,7 +16,8 @@
     "db:reset": "bash scripts/db-local.sh reset",
     "db:types": "supabase gen types typescript --db-url postgresql://postgres@127.0.0.1:54322/ventanilla --schema public > lib/supabase/database.types.ts",
     "seed:remote": "tsx --env-file-if-exists=.env.local --env-file-if-exists=.env scripts/seed-remote.ts",
-    "seed:foto": "tsx scripts/generar-foto-seed.ts"
+    "seed:foto": "tsx scripts/generar-foto-seed.ts",
+    "seed:audio": "tsx --env-file-if-exists=.env.local --env-file-if-exists=.env scripts/generar-audio-seed.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.110.0",

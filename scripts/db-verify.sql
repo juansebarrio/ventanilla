@@ -172,6 +172,78 @@ exception
 end
 $$;
 
+-- ── Reset del demo ───────────────────────────────────────────────────────────
+-- Simula actividad de demo (reclamo del simulador + mutación de R-1047 +
+-- rate limits) y verifica que demo_reset() la revierte por completo.
+do $$
+declare
+  demo uuid;
+  n int;
+  v_estado text;
+  v_counter bigint;
+begin
+  select id into demo from administrations where slug = 'iribarne';
+
+  -- Actividad de demo: un reclamo del simulador con su mensaje...
+  insert into claims (administration_id, titulo, urgencia, ambito, estado, building_id, origen)
+  values (demo, 'Reclamo de prueba del simulador', 'media', 'comun', 'recibido',
+          (select id from buildings where administration_id = demo order by alias limit 1),
+          'simulador');
+  -- ...una mutación sobre un reclamo del seed...
+  update claims set estado = 'resuelto', resuelto_at = now(), ultima_actividad_at = now()
+  where administration_id = demo and numero_publico = 'R-1047';
+  insert into claim_events (administration_id, claim_id, tipo, texto, actor)
+  select demo, id, 'estado', 'Marcado Resuelto · esperando conformidad', 'Carla Méndez'
+  from claims where administration_id = demo and numero_publico = 'R-1047';
+  -- ...y un poco de rate limit.
+  perform rate_limit_hit('ip_minute', '1.2.3.4', date_trunc('minute', now()));
+
+  perform demo_reset();
+
+  select count(*) into n from claims where administration_id = demo;
+  if n <> 46 then raise exception 'reset: esperados 46 reclamos, hay %', n; end if;
+
+  select count(*) into n from claims where administration_id = demo and origen = 'simulador' and not is_seed;
+  if n <> 0 then raise exception 'reset: quedaron reclamos del simulador'; end if;
+
+  select estado into v_estado from claims where administration_id = demo and numero_publico = 'R-1047';
+  if v_estado <> 'recibido' then
+    raise exception 'reset: R-1047 debería volver a recibido y está %', v_estado;
+  end if;
+
+  select count(*) into n from claim_events e
+  join claims c on c.id = e.claim_id
+  where c.numero_publico = 'R-1047' and not e.is_seed;
+  if n <> 0 then raise exception 'reset: quedó el evento de demo sobre R-1047'; end if;
+
+  select value into v_counter from counters where administration_id = demo and scope = 'claim';
+  if v_counter <> 1048 then raise exception 'reset: contador de reclamos en %', v_counter; end if;
+
+  -- El timeline de R-1044 quedó anclado a hoy en Buenos Aires.
+  select count(*) into n from claims
+  where administration_id = demo and numero_publico = 'R-1044'
+    and (created_at at time zone 'America/Argentina/Buenos_Aires')::date
+        = (now() at time zone 'America/Argentina/Buenos_Aires')::date
+    and to_char(created_at at time zone 'America/Argentina/Buenos_Aires', 'HH24:MI:SS') = '14:02:22'
+    and to_char(en_gestion_at at time zone 'America/Argentina/Buenos_Aires', 'HH24:MI') = '14:31'
+    and to_char(asignado_at at time zone 'America/Argentina/Buenos_Aires', 'HH24:MI') = '14:33';
+  if n <> 1 then raise exception 'reset: R-1044 no quedó re-anclado a hoy 14:02'; end if;
+
+  select count(*) into n from rate_limits;
+  if n <> 1 then raise exception 'reset: rate limits inesperados (%)', n; end if;
+
+  -- La resolución promedio sigue en 2,1 días después del reset.
+  declare dias numeric;
+  begin
+    select extract(epoch from avg(cerrado_at - created_at)) / 86400.0 into dias
+    from claims where administration_id = demo and estado = 'cerrado';
+    if dias < 2.05 or dias > 2.15 then
+      raise exception 'reset: resolución promedio % días', round(dias, 3);
+    end if;
+  end;
+end
+$$;
+
 -- ── Numeración no es ejecutable por roles de aplicación ─────────────────────
 do $$
 begin

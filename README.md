@@ -62,6 +62,31 @@ membresía y el rol anon no leen nada del tenant).
 
 Otros comandos: `pnpm db:verify`, `pnpm db:down`, `pnpm db:reset`.
 
+## Demo pública
+
+- **Landing** (`/`): réplica del export, responsive (columnas apiladas en
+  mobile). La metadata usa `NEXT_PUBLIC_SITE_URL` como URL canónica y la
+  OG image se genera en `app/opengraph-image.tsx` (fondo papel con el
+  comprobante R-1044; Space Mono va embebida desde `assets/fonts`, OFL).
+- **Simulador** (`POST /api/simulador`): usa el pipeline real contra el
+  tenant demo. Límites: 5 mensajes por minuto y 20 por día por IP; superado
+  el cap global diario (`SIMULATOR_DAILY_CAP`, 300 por defecto) sigue
+  atendiendo con el clasificador por palabras sin avisar nada distinto.
+  Los reclamos entran con `origen = simulador`, numeración correlativa
+  desde R-1049, y jamás disparan mensajes salientes.
+- **Reset diario** (`/api/demo/reset`, POST o GET): borra lo que no es
+  seed, revierte las mutaciones sobre los reclamos sembrados, re-ancla el
+  timeline de R-1044 al día corriente en Buenos Aires y purga los rate
+  limits (función SQL `demo_reset()`, solo service role). Requiere
+  `Authorization: Bearer $DEMO_RESET_SECRET`. El cron de `vercel.json`
+  corre 09:00 UTC (06:00 en Buenos Aires); como Vercel manda
+  `Authorization: Bearer $CRON_SECRET`, definí `CRON_SECRET` en el
+  proyecto (puede ser el mismo valor que `DEMO_RESET_SECRET`).
+- **Audio de Marta** (opcional): `pnpm seed:audio` sintetiza el audio del
+  timeline de R-1044 con ElevenLabs y lo sube a Storage. Sin
+  `ELEVENLABS_API_KEY`, el player del detalle queda en modo simulado,
+  como el prototipo.
+
 ## Decisiones
 
 Resueltas contra `design-reference/` cuando el prototipo era ambiguo o
@@ -121,6 +146,21 @@ inconsistente; acá quedan para no re-litigarlas.
     para comparar lado a lado. Esos iframes cargan su runtime (React) desde
     un CDN, así que necesitan conexión; sin red quedan en blanco. Los
     componentes propios se ven siempre.
+15. **Orden de edificios: el más grande primero.** El select de expensas del
+    export lista Yerbal 1240 (24 UF) antes que Virrey Loreto 2680 (18 UF) y
+    abre en Yerbal; alfabéticamente sería al revés. Criterio adoptado en la
+    card de expensas y en la pantalla Edificios: total de unidades
+    descendente, desempate por dirección.
+16. **"Esperan tu acción" ordena por urgencia.** Urgente, alta, media, baja;
+    desempate por ingreso más reciente. Es el orden del export (R-1047
+    urgente arriba); por fecha sola, R-1048 taparía al urgente.
+17. **La clasificación se registra después de la foto.** El timeline del
+    detalle ordena estricto por hora y el diseño agrupa audio + foto antes
+    del chip "Clasificado…"; el evento va sembrado 14:02:45 (la foto,
+    14:02:41).
+18. **El texto del H1 de la landing** se deja fluir con `text-wrap: balance`
+    dentro de los 880px del export (tres líneas a 1440): el markup replica
+    el export y el corte de línea es el que el navegador calcule.
 
 ## Pendientes de Fase 1
 

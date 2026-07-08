@@ -708,6 +708,18 @@ export type Database = {
         Args: { p_administration_id: string; p_scope: string };
         Returns: number;
       };
+      rate_limit_hit: {
+        Args: { p_scope: string; p_bucket_key: string; p_window_start: string };
+        Returns: number;
+      };
+      rate_limit_purga: {
+        Args: { p_antes: string };
+        Returns: undefined;
+      };
+      demo_reset: {
+        Args: Record<string, never>;
+        Returns: undefined;
+      };
     };
     Enums: { [_ in never]: never };
     CompositeTypes: { [_ in never]: never };

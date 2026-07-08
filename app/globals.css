@@ -134,6 +134,80 @@ textarea::placeholder {
   background: var(--superficie-suave);
 }
 
+/*
+ * Landing pública. El export es de escritorio (1440); estas clases replican
+ * sus grids y los apilan en pantallas chicas (la landing es responsive, el
+ * panel no — decisión registrada en el README).
+ */
+.ld-pad {
+  padding-left: 44px;
+  padding-right: 44px;
+}
+
+.ld-h1 {
+  font-size: 64px;
+}
+
+.ld-sim-grid {
+  display: grid;
+  grid-template-columns: 1fr 96px 1fr;
+  align-items: stretch;
+}
+
+.ld-flecha {
+  position: relative;
+}
+
+.ld-pasos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+.ld-oscura-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+
+.ld-h2 {
+  font-size: 40px;
+}
+
+@media (max-width: 960px) {
+  .ld-pad {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .ld-h1 {
+    font-size: 40px;
+  }
+  .ld-h2 {
+    font-size: 30px;
+  }
+  .ld-sim-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .ld-flecha {
+    display: none;
+  }
+  .ld-pasos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ld-oscura-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 520px) {
+  .ld-pasos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
