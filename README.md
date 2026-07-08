@@ -196,12 +196,36 @@ inconsistente; acá quedan para no re-litigarlas.
     dentro de los 880px del export (tres líneas a 1440): el markup replica
     el export y el corte de línea es el que el navegador calcule.
 
+## Verificación
+
+Automática (corre en cualquier máquina con Node y PostgreSQL):
+
+```bash
+pnpm typecheck && pnpm lint && pnpm test   # tipos, estilo y 53 tests
+pnpm build                                 # build de producción sin warnings
+pnpm db:local                              # migraciones + seed x2 + asserts
+```
+
+`pnpm db:local` valida contra un Postgres efímero: conteos exactos del
+seed, KPIs (2,1 días / 38 s), numeración correlativa, RLS (anon y un
+autenticado ajeno leen cero filas), reset del demo con re-anclaje de
+fechas y dedupe de mensajes de WhatsApp.
+
+Manual (contra el deploy, ~2 minutos): escribir en el simulador de la
+landing → el reclamo aparece en la bandeja del panel por Realtime con su
+animación → abrir el detalle → Emitir orden de trabajo → Marcar resuelto →
+verificar los eventos en el timeline. El sexto mensaje seguido al
+simulador responde con el aviso de ritmo. La comparación visual se hace en
+`/styleguide` (componentes y pantallas con fixtures, y el export original
+embebido al pie para mirar lado a lado).
+
 ## Pendientes de Fase 1
 
 - Formularios de edición en Edificios, Proveedores y Ajustes (Fase 0 los
   muestra solo lectura).
-- Encendido de WhatsApp Cloud API (número, verificación de Meta y
-  plantillas aprobadas).
+- Encendido de WhatsApp en producción: número propio, verificación del
+  negocio en Meta, token permanente y plantillas aprobadas (el adaptador
+  ya está construido y env-gated, ver sección WhatsApp).
 - Panel responsive.
 - Automatización de órdenes de trabajo por categoría (`ot_automatica`).
 
