@@ -34,13 +34,23 @@ export const env = {
     return process.env.ELEVENLABS_API_KEY || undefined;
   },
   get whatsapp():
-    | { verifyToken: string; accessToken: string; phoneNumberId: string }
+    | {
+        verifyToken: string;
+        accessToken: string;
+        phoneNumberId: string;
+        appSecret: string | undefined;
+      }
     | undefined {
     const verifyToken = process.env.WHATSAPP_VERIFY_TOKEN;
     const accessToken = process.env.WHATSAPP_ACCESS_TOKEN;
     const phoneNumberId = process.env.WHATSAPP_PHONE_NUMBER_ID;
     if (!verifyToken || !accessToken || !phoneNumberId) return undefined;
-    return { verifyToken, accessToken, phoneNumberId };
+    return {
+      verifyToken,
+      accessToken,
+      phoneNumberId,
+      appSecret: process.env.WHATSAPP_APP_SECRET || undefined,
+    };
   },
   get simulatorDailyCap(): number {
     const crudo = process.env.SIMULATOR_DAILY_CAP;

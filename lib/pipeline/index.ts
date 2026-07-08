@@ -1,7 +1,7 @@
 /**
  * Pipeline core de Ventanilla: clasificación, redacción, máquina de estados y
  * órdenes de trabajo. Transporte-agnóstico — lo usan el simulador, el panel y
- * (en fase 1) el webhook de WhatsApp.
+ * el webhook de WhatsApp.
  */
 
 export {
@@ -33,6 +33,11 @@ export {
   SinProveedorError,
   type OrdenEmitida,
 } from "./ordenes";
+export {
+  registrarReclamo,
+  type EntradaReclamo,
+  type ReclamoRegistrado,
+} from "./registrar";
 export {
   redactarRespuestaVecino,
   redactarTextoOrdenTrabajo,

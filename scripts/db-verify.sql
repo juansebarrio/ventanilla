@@ -295,9 +295,39 @@ begin
   if n <> 0 then raise exception 'RLS: anon ve % vecinos', n; end if;
   select count(*) into n from claim_messages;
   if n <> 0 then raise exception 'RLS: anon ve % mensajes', n; end if;
+  select count(*) into n from wa_sessions;
+  if n <> 0 then raise exception 'RLS: anon ve % sesiones de whatsapp', n; end if;
 end
 $$;
 
 reset role;
+
+-- ── Dedupe de mensajes de WhatsApp ───────────────────────────────────────────
+-- El índice único sobre wa_message_id descarta reintentos del webhook.
+do $$
+declare
+  demo uuid;
+  v_claim uuid;
+begin
+  select id into demo from administrations where slug = 'iribarne';
+  select id into v_claim from claims
+  where administration_id = demo and numero_publico = 'R-1044';
+
+  insert into claim_messages
+    (administration_id, claim_id, direccion, tipo, contenido, wa_message_id)
+  values (demo, v_claim, 'entrada', 'texto', 'prueba wamid', 'wamid.prueba');
+
+  begin
+    insert into claim_messages
+      (administration_id, claim_id, direccion, tipo, contenido, wa_message_id)
+    values (demo, v_claim, 'entrada', 'texto', 'duplicado', 'wamid.prueba');
+    raise exception 'el wamid duplicado no debería insertarse';
+  exception
+    when unique_violation then null;
+  end;
+
+  delete from claim_messages where wa_message_id = 'wamid.prueba';
+end
+$$;
 
 select 'db-verify: todos los asserts pasaron' as resultado;

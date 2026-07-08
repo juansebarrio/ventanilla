@@ -2,8 +2,8 @@ import type { Urgencia } from "@/lib/domain/claims";
 
 /**
  * Plantillas centralizadas de los mensajes salientes. Las usa el pipeline
- * (simulador y, en fase 1, el webhook de WhatsApp), así el texto es idéntico
- * sin importar el canal. Copy exacto de design-reference; sin exclamaciones.
+ * (simulador y webhook de WhatsApp), así el texto es idéntico sin importar
+ * el canal. Copy exacto de design-reference; sin exclamaciones.
  */
 
 /**
@@ -67,4 +67,70 @@ export function redactarTextoOrdenTrabajo(input: {
   }
 
   return partes.join(" ");
+}
+
+/*
+ * Plantillas del alta conversacional por WhatsApp (tanda 6). Un número que
+ * escribe y no está registrado pasa por edificio → unidad → nombre y recién
+ * después se registra su reclamo.
+ */
+
+export function mensajeBienvenida(edificios: { direccion: string }[]): string {
+  const opciones = edificios
+    .map((e, i) => `${i + 1} para ${e.direccion}`)
+    .join(", ");
+  return `Hola. Soy Ventanilla, la mesa de reclamos de Administración Iribarne. Para registrar tu reclamo primero necesito ubicarte. ¿En qué edificio vivís? Respondé ${opciones}.`;
+}
+
+export function mensajeEdificioInvalido(
+  edificios: { direccion: string }[],
+): string {
+  const opciones = edificios
+    .map((e, i) => `${i + 1} para ${e.direccion}`)
+    .join(", ");
+  return `No reconocí ese edificio. Respondé ${opciones}.`;
+}
+
+export function mensajePedirUnidad(edificio: string): string {
+  return `Perfecto, ${edificio}. ¿Cuál es tu unidad? Por ejemplo 5B, o PB si es planta baja.`;
+}
+
+export function mensajeUnidadInvalida(): string {
+  return "No encontré esa unidad. Escribila como piso y letra, por ejemplo 5B o 2A.";
+}
+
+export function mensajePedirNombre(): string {
+  return "¿Tu nombre y apellido?";
+}
+
+export function mensajeAltaCompleta(input: {
+  nombre: string;
+  edificio: string;
+  unidad: string;
+  teniaReclamoPendiente: boolean;
+}): string {
+  const base = `Listo, ${input.nombre}. Quedaste como vecino de ${input.edificio}, unidad ${input.unidad}.`;
+  return input.teniaReclamoPendiente
+    ? `${base} Ya registro tu reclamo.`
+    : `${base} Contame qué pasó y lo registro con número de seguimiento.`;
+}
+
+export function mensajeAudioSinTranscripcion(): string {
+  return "Recibí tu audio pero no pude escucharlo bien. ¿Me contás qué pasó por texto?";
+}
+
+export function mensajeFotoSuelta(): string {
+  return "Recibí la foto. Contame en un mensaje qué pasó así lo registro con número de seguimiento.";
+}
+
+export function mensajeFotoAgregada(numeroPublico: string): string {
+  return `Sumé la foto a tu reclamo ${numeroPublico}.`;
+}
+
+export function mensajeTipoNoSoportado(): string {
+  return "Por ahora puedo recibir texto, audios y fotos. Contame qué pasó y lo registro.";
+}
+
+export function mensajeOnboardingSoloTexto(): string {
+  return "Para terminar el registro necesito que me respondas por texto.";
 }
