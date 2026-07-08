@@ -86,6 +86,12 @@ Otros comandos: `pnpm db:verify`, `pnpm db:down`, `pnpm db:reset`.
   timeline de R-1044 con ElevenLabs y lo sube a Storage. Sin
   `ELEVENLABS_API_KEY`, el player del detalle queda en modo simulado,
   como el prototipo.
+- **Acceso al panel desde la landing**: botón "Panel de la administración"
+  en el nav (y un link bajo el simulador). Con `NEXT_PUBLIC_DEMO_PASSWORD`
+  configurada (mismo valor que `SEED_ADMIN_PASSWORD`), el login viene
+  precargado con la usuaria de demostración: exponer esa clave es
+  deliberado — el tenant es ficticio y se resetea a diario. Sin la
+  variable, el login queda vacío como cualquier login normal.
 
 ## WhatsApp (env-gated)
 
