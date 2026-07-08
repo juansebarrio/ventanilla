@@ -22,6 +22,14 @@ type Cliente = SupabaseClient<Database>;
 
 const SEG_POR_DIA = 86_400;
 
+/** Orden de la cola de acción: lo urgente arriba, como en el prototipo. */
+const RANGO_URGENCIA: Record<Urgencia, number> = {
+  urgente: 0,
+  alta: 1,
+  media: 2,
+  baja: 3,
+};
+
 function fechaRelativaTexto(iso: string, ahora: number): string {
   const minutos = Math.floor((ahora - new Date(iso).getTime()) / 60_000);
   if (minutos < 2) return "recién";
@@ -100,7 +108,11 @@ export async function cargarHoy(
   // ── Esperan tu acción ──────────────────────────────────────────────────────
   const esperan: ItemEspera[] = claims
     .filter((c) => c.estado === "recibido")
-    .sort((a, b) => b.created_at.localeCompare(a.created_at))
+    .sort(
+      (a, b) =>
+        RANGO_URGENCIA[a.urgencia as Urgencia] - RANGO_URGENCIA[b.urgencia as Urgencia] ||
+        b.created_at.localeCompare(a.created_at),
+    )
     .map((c) => {
       const nombreCat = c.categoria_id ? categorias.get(c.categoria_id) : null;
       const conProveedor =
@@ -173,8 +185,11 @@ export async function cargarHoy(
     grupo.totalAdeudado += a.monto;
     grupo.conDeuda += 1;
   }
-  const arrearsPorEdificio = [...porEdificio.values()].sort((a, b) =>
-    a.edificio.localeCompare(b.edificio),
+  // El edificio más grande primero (Yerbal 1240 antes que Virrey Loreto 2680),
+  // igual que el select del prototipo.
+  const arrearsPorEdificio = [...porEdificio.values()].sort(
+    (a, b) =>
+      b.totalUnidades - a.totalUnidades || a.edificio.localeCompare(b.edificio),
   );
 
   return {

@@ -30,21 +30,9 @@ export function PieReclamos({
     router.replace(pathname);
   }
 
-  if (visibles === 0) {
-    return (
-      <div
-        className="flex flex-col items-center"
-        style={{ gap: "8px", padding: "44px 20px", textAlign: "center" }}
-      >
-        <span className="text-tinta-2" style={{ fontSize: "14px" }}>
-          Ningún reclamo coincide con esos filtros.
-        </span>
-        <BotonLink onClick={limpiar}>Limpiar filtros</BotonLink>
-      </div>
-    );
-  }
-
-  return (
+  // El prototipo mantiene la línea de conteo también sin resultados: el
+  // estado vacío se muestra encima del pie, no en su lugar.
+  const pie = (
     <div className="flex items-center" style={{ gap: "6px", padding: "14px 20px" }}>
       <span className="text-tinta-3" style={{ fontSize: "13px" }}>
         {visibles} de {total} {visibles === 1 ? "reclamo" : "reclamos"}
@@ -57,6 +45,25 @@ export function PieReclamos({
       )}
     </div>
   );
+
+  if (visibles === 0) {
+    return (
+      <>
+        <div
+          className="flex flex-col items-center"
+          style={{ gap: "8px", padding: "44px 20px", textAlign: "center" }}
+        >
+          <span className="text-tinta-2" style={{ fontSize: "14px" }}>
+            Ningún reclamo coincide con esos filtros.
+          </span>
+          <BotonLink onClick={limpiar}>Limpiar filtros</BotonLink>
+        </div>
+        {pie}
+      </>
+    );
+  }
+
+  return pie;
 }
 
 function BotonLink({

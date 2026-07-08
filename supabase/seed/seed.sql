@@ -380,9 +380,11 @@ select
 from (values
   ('R-1044:alta', 'R-1044', 'alta',
    'Nuevo reclamo', 'Sistema', pg_temp.hoy('14:02:22')),
+  -- La clasificación va después de la foto (14:02:41): el timeline ordena por
+  -- created_at estricto y el diseño agrupa audio + foto antes del chip.
   ('R-1044:clasificacion', 'R-1044', 'clasificacion',
    'Clasificado: Filtraciones y humedad · Alta · Ámbito común', 'Sistema',
-   pg_temp.hoy('14:02:30')),
+   pg_temp.hoy('14:02:45')),
   ('R-1044:aprobacion', 'R-1044', 'aprobacion',
    'Carla Méndez aprobó la gestión', 'Carla Méndez', pg_temp.hoy('14:31')),
   ('R-1044:ot', 'R-1044', 'ot_creada',

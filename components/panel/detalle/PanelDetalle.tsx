@@ -38,6 +38,7 @@ export function PanelDetalle({
   const [respuesta, setRespuesta] = useState("");
   const [pendiente, setPendiente] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [errorRespuesta, setErrorRespuesta] = useState<string | null>(null);
   const [, iniciar] = useTransition();
 
   function agregar(item: ItemTimeline) {
@@ -47,6 +48,7 @@ export function PanelDetalle({
   function enviarRespuesta() {
     const texto = respuesta.trim();
     if (!texto) return;
+    setErrorRespuesta(null);
     setRespuesta("");
     agregar({
       clase: "administracion",
@@ -56,7 +58,7 @@ export function PanelDetalle({
     });
     iniciar(async () => {
       const r = await acciones.responder(vm.claimId, texto);
-      if (!r.ok) setError(r.error);
+      if (!r.ok) setErrorRespuesta(r.error);
     });
   }
 
@@ -183,6 +185,19 @@ export function PanelDetalle({
               Enviar
             </Boton>
           </div>
+          {errorRespuesta ? (
+            <p
+              role="alert"
+              className="m-0"
+              style={{
+                fontSize: "13px",
+                color: "var(--estado-reabierto-fg)",
+                padding: "0 20px 14px",
+              }}
+            >
+              {errorRespuesta}
+            </p>
+          ) : null}
         </Card>
 
         <div className="flex flex-col" style={{ gap: "16px" }}>

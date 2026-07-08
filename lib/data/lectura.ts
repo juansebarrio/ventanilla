@@ -16,6 +16,9 @@ export async function cargarEdificios(
       .from("buildings")
       .select("id, direccion, alias, total_unidades")
       .eq("administration_id", administrationId)
+      // El edificio más grande primero, mismo criterio que la card de
+      // expensas del Panel Hoy (Yerbal 1240 antes que Virrey Loreto 2680).
+      .order("total_unidades", { ascending: false })
       .order("direccion"),
     supabase.from("arrears").select("building_id").eq("administration_id", administrationId),
   ]);

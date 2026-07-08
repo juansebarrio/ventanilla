@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { InputBusqueda } from "@/components/InputBusqueda";
 
 /** Buscador de la bandeja: escribe ?q= en la URL con debounce. */
@@ -10,13 +10,19 @@ export function BuscadorReclamos({ valor }: { valor: string }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [texto, setTexto] = useState(valor);
-  const primera = useRef(true);
+  const [valorPrevio, setValorPrevio] = useState(valor);
+
+  // Si la URL cambió por fuera (Limpiar filtros, Ver cerrados), el input se
+  // realinea con ella; mientras el cambio viene del tipeo, valor acompaña.
+  if (valor !== valorPrevio) {
+    setValorPrevio(valor);
+    setTexto(valor);
+  }
 
   useEffect(() => {
-    if (primera.current) {
-      primera.current = false;
-      return;
-    }
+    // Ya sincronizado con la URL: no reescribirla (evita, además, que el
+    // efecto re-agregue ?q= después de un Limpiar filtros).
+    if (texto.trim() === valor) return;
     const t = setTimeout(() => {
       const params = new URLSearchParams(searchParams.toString());
       if (texto.trim()) params.set("q", texto.trim());
@@ -25,7 +31,7 @@ export function BuscadorReclamos({ valor }: { valor: string }) {
       router.replace(query ? `${pathname}?${query}` : pathname);
     }, 250);
     return () => clearTimeout(t);
-  }, [texto, pathname, router, searchParams]);
+  }, [texto, valor, pathname, router, searchParams]);
 
   return (
     <InputBusqueda

@@ -36,14 +36,22 @@ export async function proxy(request: NextRequest) {
 
   const path = request.nextUrl.pathname;
 
+  // Los redirects llevan las cookies que getUser() haya rotado: un redirect
+  // pelado las perdería y el refresh token viejo quedaría consumido.
+  function redirigir(destino: URL): NextResponse {
+    const redirect = NextResponse.redirect(destino);
+    response.cookies.getAll().forEach((cookie) => redirect.cookies.set(cookie));
+    return redirect;
+  }
+
   if (!user && path.startsWith("/panel")) {
     const login = new URL("/login", request.url);
     login.searchParams.set("desde", path);
-    return NextResponse.redirect(login);
+    return redirigir(login);
   }
 
   if (user && path === "/login") {
-    return NextResponse.redirect(new URL("/panel", request.url));
+    return redirigir(new URL("/panel", request.url));
   }
 
   return response;
