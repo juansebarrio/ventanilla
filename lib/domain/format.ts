@@ -20,6 +20,12 @@ export function formatMonto(monto: number): string {
   return `$ ${new Intl.NumberFormat("es-AR", { maximumFractionDigits: 0 }).format(monto)}`;
 }
 
+/** Resumen de unidad: "5°B" para pisos numéricos, "PBA" para planta baja. */
+export function resumenUnidad(piso: string, letra: string | null): string {
+  const l = letra ?? "";
+  return piso === "PB" ? `PB${l}` : `${piso}°${l}`;
+}
+
 /** "Martes 7 de julio", en la zona horaria de Buenos Aires. */
 export function fechaDelDia(fecha: Date = new Date()): string {
   const texto = new Intl.DateTimeFormat("es-AR", {

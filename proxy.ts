@@ -50,8 +50,7 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // Corre en todo salvo estáticos y assets, para no bloquear CSS/JS/imágenes.
-  matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)",
-  ],
+  // Solo el panel y el login: deja fuera /styleguide/panel (fixtures sin
+  // sesión), la landing y los assets.
+  matcher: ["/panel/:path*", "/login"],
 };

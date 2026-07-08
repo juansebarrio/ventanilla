@@ -75,6 +75,20 @@ export default function Styleguide() {
           Componentes base del sistema, para comparación contra el export
           durante el desarrollo. Fuera de la navegación del panel.
         </p>
+        <p style={{ fontSize: "14px", marginTop: "10px" }}>
+          Pantallas del panel con datos de ejemplo (sin base):{" "}
+          <a href="/styleguide/panel/hoy" className="text-primario">
+            Hoy
+          </a>
+          {" · "}
+          <a href="/styleguide/panel/reclamos" className="text-primario">
+            Reclamos
+          </a>
+          {" · "}
+          <a href="/styleguide/panel/detalle" className="text-primario">
+            Detalle
+          </a>
+        </p>
       </header>
 
       <Seccion titulo="Colores">
