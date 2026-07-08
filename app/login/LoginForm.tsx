@@ -16,7 +16,15 @@ const CAMPO: React.CSSProperties = {
   fontSize: "14px",
 };
 
-export function LoginForm({ desde }: { desde: string }) {
+export function LoginForm({
+  desde,
+  emailInicial,
+  claveInicial,
+}: {
+  desde: string;
+  emailInicial?: string;
+  claveInicial?: string;
+}) {
   const [estado, accion, pendiente] = useActionState(iniciarSesion, INICIAL);
 
   return (
@@ -35,6 +43,7 @@ export function LoginForm({ desde }: { desde: string }) {
           name="email"
           autoComplete="email"
           required
+          defaultValue={emailInicial}
           className="font-sans text-tinta outline-none"
           style={CAMPO}
           placeholder="carla@iribarne.ar"
@@ -53,6 +62,7 @@ export function LoginForm({ desde }: { desde: string }) {
           name="password"
           autoComplete="current-password"
           required
+          defaultValue={claveInicial}
           className="font-sans text-tinta outline-none"
           style={CAMPO}
         />

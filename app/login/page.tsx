@@ -13,6 +13,14 @@ export default async function LoginPage({
 }) {
   const { desde } = await searchParams;
 
+  // Demo pública: con NEXT_PUBLIC_DEMO_PASSWORD configurada, el formulario
+  // viene precargado con la usuaria de demostración (es un tenant ficticio;
+  // exponer esta clave es deliberado).
+  const claveDemo = process.env.NEXT_PUBLIC_DEMO_PASSWORD || undefined;
+  const emailDemo = claveDemo
+    ? (process.env.NEXT_PUBLIC_DEMO_EMAIL ?? "carla@iribarne.ar")
+    : undefined;
+
   return (
     <main className="flex min-h-screen items-center justify-center px-4">
       <div
@@ -47,10 +55,16 @@ export default async function LoginPage({
           Ingresá al panel
         </h1>
         <p className="text-tinta-2" style={{ fontSize: "14px", marginBottom: "20px" }}>
-          Administración de reclamos de tus consorcios.
+          {claveDemo
+            ? "Demo pública: las credenciales ya vienen cargadas, tocá Ingresar."
+            : "Administración de reclamos de tus consorcios."}
         </p>
 
-        <LoginForm desde={desde ?? "/panel"} />
+        <LoginForm
+          desde={desde ?? "/panel"}
+          emailInicial={emailDemo}
+          claveInicial={claveDemo}
+        />
       </div>
     </main>
   );

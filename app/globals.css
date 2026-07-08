@@ -180,6 +180,12 @@ textarea::placeholder {
     padding-left: 20px;
     padding-right: 20px;
   }
+  /* El acceso al panel del nav se esconde en pantallas chicas (no entran
+     dos botones); queda el link equivalente bajo el simulador. El important
+     es necesario porque el display base del botón viene por estilo inline. */
+  .ld-nav-panel {
+    display: none !important;
+  }
   .ld-h1 {
     font-size: 40px;
   }

@@ -423,7 +423,14 @@ export function Simulador() {
           color: "#5C6660",
         }}
       >
-        El simulador usa el sistema real. Solo cambia el canal.
+        El simulador usa el sistema real. Solo cambia el canal.{" "}
+        <a
+          href="/login"
+          className="hover:underline"
+          style={{ color: "#1E4D3F", fontWeight: 500, textDecoration: "none" }}
+        >
+          Mirá el otro lado: entrá al panel de la administración.
+        </a>
       </p>
     </div>
   );

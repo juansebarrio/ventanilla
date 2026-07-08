@@ -89,7 +89,27 @@ export default function Landing() {
           </span>
         </div>
         <span style={CHIP_CASO}>CASO DE ESTUDIO</span>
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
+          <a
+            href="/login"
+            className="ld-nav-panel hover:bg-papel"
+            style={{
+              ...BOTON_PRIMARIO,
+              padding: "0 18px",
+              background: "#FFFFFF",
+              color: "#1C2B26",
+              border: "1px solid #E5E1D8",
+            }}
+          >
+            Panel de la administración
+          </a>
           <a
             href="#contacto"
             className="hover:bg-primario-hover"
