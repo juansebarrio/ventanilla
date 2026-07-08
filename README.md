@@ -225,6 +225,25 @@ simulador responde con el aviso de ritmo. La comparación visual se hace en
 `/styleguide` (componentes y pantallas con fixtures, y el export original
 embebido al pie para mirar lado a lado).
 
+## Reuniones (asambleas de consorcio)
+
+Módulo agregado sobre el panel: ítem "Reuniones" en la navegación, módulo
+compacto "Próxima asamblea" en el dashboard Hoy y la pantalla Reuniones
+completa (convocatoria con link virtual copiable y datos presenciales,
+orden del día, quórum en vivo, listado de ingresantes que se arma solo con
+las confirmaciones por WhatsApp, acta generada automáticamente al cierre
+con forma de acta manual, y su envío a los vecinos). La referencia de
+diseño vive en `design_handoff_reuniones/`.
+
+La lógica que el prototipo simula (confirmaciones que llegan, acta
+generada desde la grabación y las votaciones) está detrás del servicio
+mockeado `lib/reuniones/servicio.ts` — `obtenerReuniones()`,
+`suscribirConfirmaciones()`, `enviarActa()`, `convocarAsamblea()` — con
+los datos ficticios del caso de estudio, listo para conectar al backend
+real sin tocar las vistas. El preview `/styleguide/panel/reuniones` corre
+con la simulación activa: a los 3 segundos entra una confirmación nueva,
+animada, y el quórum se actualiza en vivo.
+
 ## Pendientes de Fase 1
 
 - Formularios de edición en Edificios, Proveedores y Ajustes (Fase 0 los
@@ -232,6 +251,8 @@ embebido al pie para mirar lado a lado).
 - Encendido de WhatsApp en producción: número propio, verificación del
   negocio en Meta, token permanente y plantillas aprobadas (el adaptador
   ya está construido y env-gated, ver sección WhatsApp).
+- Backend real del módulo Reuniones: hoy corre sobre el servicio mockeado
+  (convocatoria, confirmaciones, generación y envío del acta).
 - Panel responsive.
 - Automatización de órdenes de trabajo por categoría (`ot_automatica`).
 
@@ -241,7 +262,8 @@ embebido al pie para mirar lado a lado).
 app/                    rutas (App Router)
 components/             componentes de interfaz
 design-reference/       export de Claude Design: fuente de verdad visual
-lib/                    dominio, pipeline, whatsapp, entorno y clientes de Supabase
+design_handoff_reuniones/  handoff del módulo Reuniones (referencia + screenshots)
+lib/                    dominio, pipeline, whatsapp, reuniones, entorno y Supabase
 scripts/                verificación local de la base y seeds auxiliares
 supabase/migrations/    schema, numeración, RLS, Realtime, Storage, demo, whatsapp
 supabase/seed/          seed.sql del tenant demo + assets + stub local

@@ -9,6 +9,7 @@ import {
   IconoHoy,
   IconoProveedores,
   IconoReclamos,
+  IconoUsers,
 } from "./iconos";
 
 /*
@@ -26,6 +27,7 @@ type ItemNav = {
 const NAV: ItemNav[] = [
   { href: "/panel", label: "Hoy", Icono: IconoHoy },
   { href: "/panel/reclamos", label: "Reclamos", Icono: IconoReclamos },
+  { href: "/panel/reuniones", label: "Reuniones", Icono: IconoUsers },
   { href: "/panel/edificios", label: "Edificios", Icono: IconoEdificios },
   { href: "/panel/proveedores", label: "Proveedores", Icono: IconoProveedores },
   { href: "/panel/ajustes", label: "Ajustes", Icono: IconoAjustes },

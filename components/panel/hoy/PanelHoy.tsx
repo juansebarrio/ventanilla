@@ -9,6 +9,8 @@ import type {
   KpisHoy,
   MovimientoFeed,
 } from "@/lib/panel/tipos";
+import type { AsambleaHoyVM } from "@/lib/reuniones/tipos";
+import { CardAsambleaHoy } from "./CardAsambleaHoy";
 import { CardEsperan } from "./CardEsperan";
 import { CardExpensas } from "./CardExpensas";
 import { CardMovimientos } from "./CardMovimientos";
@@ -23,9 +25,12 @@ import { CardResumen } from "./CardResumen";
 export function PanelHoy({
   vm,
   acciones,
+  asamblea,
 }: {
   vm: HoyVM;
   acciones: AccionesHoy;
+  /** Módulo "Próxima asamblea" (Reuniones); sin datos no se muestra. */
+  asamblea?: AsambleaHoyVM;
 }) {
   const [kpis, setKpis] = useState<KpisHoy>(vm.kpis);
   const [esperan, setEsperan] = useState<EsperaConEstado[]>(() =>
@@ -100,6 +105,7 @@ export function PanelHoy({
         </div>
         <div className="flex flex-col" style={{ gap: "20px" }}>
           <CardResumen kpis={kpis} />
+          {asamblea ? <CardAsambleaHoy asamblea={asamblea} /> : null}
           <CardMovimientos movimientos={movimientos} />
         </div>
       </section>

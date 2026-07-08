@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#F7F5F0;color:#1C2B26;font-family:'Public Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#1E4D3F}a:hover{color:#16382E}
+input::placeholder,textarea::placeholder{color:#8A928D;opacity:1}
+@keyframes vtnfade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div data-screen-label="Panel · Reuniones" style="display:flex;align-items:stretch;min-height:100vh;min-width:1440px;background:#F7F5F0">
+
+  <aside style="width:240px;min-width:240px;background:#FFFFFF;border-right:1px solid #E5E1D8;display:flex;flex-direction:column;position:sticky;top:0;height:100vh">
+    <div style="padding:24px 20px 14px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="width:28px;height:28px;background:#1E4D3F;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px">V</span>
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:#1C2B26;letter-spacing:-0.01em">Ventanilla</span>
+      </div>
+      <a href="Landing Ventanilla.dc.html" title="Ver el caso de estudio" style="display:inline-block;margin-top:12px;background:#FDF0DC;color:#92600A;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:4px 10px;border-radius:4px;text-decoration:none">DEMO</a>
+    </div>
+    <nav style="display:flex;flex-direction:column;gap:2px;padding:10px 12px">
+      <a href="Panel Hoy.dc.html" style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:#5C6660;font-size:14px;font-weight:500;text-decoration:none" style-hover="background:#F7F5F0;color:#1C2B26">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+        Hoy
+      </a>
+      <a href="Panel Reclamos.dc.html" style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:#5C6660;font-size:14px;font-weight:500;text-decoration:none" style-hover="background:#F7F5F0;color:#1C2B26">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg>
+        Reclamos
+      </a>
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;background:#E3EDE7;color:#1E4D3F;font-size:14px;font-weight:500">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        Reuniones
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:#5C6660;font-size:14px;font-weight:500" style-hover="background:#F7F5F0">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg>
+        Edificios
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:#5C6660;font-size:14px;font-weight:500" style-hover="background:#F7F5F0">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+        Proveedores
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:#5C6660;font-size:14px;font-weight:500" style-hover="background:#F7F5F0">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="14" y1="4" y2="4"></line><line x1="10" x2="3" y1="4" y2="4"></line><line x1="21" x2="12" y1="12" y2="12"></line><line x1="8" x2="3" y1="12" y2="12"></line><line x1="21" x2="16" y1="20" y2="20"></line><line x1="12" x2="3" y1="20" y2="20"></line><line x1="14" x2="14" y1="2" y2="6"></line><line x1="8" x2="8" y1="10" y2="14"></line><line x1="16" x2="16" y1="18" y2="22"></line></svg>
+        Ajustes
+      </div>
+    </nav>
+    <div style="margin-top:auto;padding:16px 20px;border-top:1px solid #E5E1D8;display:flex;gap:10px;align-items:center">
+      <span style="width:34px;height:34px;min-width:34px;border-radius:50%;background:#E3EDE7;color:#1E4D3F;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">CM</span>
+      <span style="display:flex;flex-direction:column;min-width:0">
+        <span style="font-size:14px;font-weight:500;color:#1C2B26">Carla Méndez</span>
+        <span style="font-size:12px;color:#8A928D">Administración Iribarne</span>
+      </span>
+    </div>
+  </aside>
+
+  <main style="flex:1;min-width:0;max-width:1200px;padding:30px 32px 56px">
+    <header style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px">
+      <h1 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:26px;line-height:32px">Reuniones</h1>
+      <button style="display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border:1px solid #E5E1D8;border-radius:8px;background:#FFFFFF;color:#1C2B26;font-family:'Public Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer" style-hover="background:#F7F5F0">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+        Convocar asamblea
+      </button>
+    </header>
+
+    <section style="display:grid;grid-template-columns:62fr 38fr;gap:20px;align-items:start">
+
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+      <div data-screen-label="Próxima asamblea" style="background:#FFFFFF;border:1px solid #E5E1D8;border-radius:10px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px 14px;border-bottom:1px solid #F0EDE6">
+          <h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:19px;line-height:26px">Próxima asamblea</h2>
+          <span style="background:#E3EDE7;color:#1E4D3F;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:4px 10px;border-radius:4px">CONVOCADA</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px;padding:20px">
+
+          <div style="display:flex;gap:16px;align-items:center">
+            <span style="display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:64px;height:64px;min-width:64px;border:1.5px dashed #1E4D3F;border-radius:8px">
+              <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:24px;line-height:1;color:#1E4D3F">16</span>
+              <span style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#5C6660">JUL</span>
+            </span>
+            <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+              <span style="font-size:16px;font-weight:600;line-height:22px">Asamblea ordinaria</span>
+              <span style="font-size:13px;color:#5C6660">Yerbal 1240 · jueves 16 de julio · <span style="font-family:'Space Mono',monospace;font-size:12px">19:00</span> · segunda convocatoria <span style="font-family:'Space Mono',monospace;font-size:12px">19:30</span></span>
+              <span style="font-size:12px;color:#8A928D">Convocatoria enviada el 1 de julio por WhatsApp a las 24 unidades.</span>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div style="border:1px solid #E5E1D8;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:8px">
+              <span style="display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.06em;color:#8A928D">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8A928D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"></path><rect x="2" y="6" width="14" height="12" rx="2"></rect></svg>
+                VIRTUAL
+              </span>
+              <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:13px;color:#1E4D3F;word-break:break-all">reunion.ventanilla.ar/yerbal-1240</span>
+              <div>
+                <sc-if value="{{ linkNormal }}" hint-placeholder-val="{{ true }}">
+                  <button onClick="{{ copiarLink }}" style="height:32px;padding:0 12px;border:1px solid #E5E1D8;border-radius:8px;background:#FFFFFF;color:#1C2B26;font-family:'Public Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer" style-hover="background:#F7F5F0">Copiar link</button>
+                </sc-if>
+                <sc-if value="{{ linkCopiado }}" hint-placeholder-val="{{ false }}">
+                  <span style="display:inline-flex;align-items:center;gap:6px;height:32px;animation:vtnfade 0.2s ease">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#17603B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                    <span style="font-size:13px;font-weight:600;color:#17603B">Copiado</span>
+                  </span>
+                </sc-if>
+              </div>
+              <span style="font-size:12px;color:#8A928D">Se abre en el navegador, sin cuenta.</span>
+            </div>
+            <div style="border:1px solid #E5E1D8;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:8px">
+              <span style="display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:0.06em;color:#8A928D">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8A928D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                PRESENCIAL
+              </span>
+              <span style="font-size:14px;font-weight:500;line-height:20px">SUM · planta baja</span>
+              <span style="font-size:13px;color:#5C6660">Yerbal 1240, CABA</span>
+              <span style="font-size:12px;color:#8A928D">El libro de asistencia se firma al entrar.</span>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.06em;color:#8A928D">ORDEN DEL DÍA</span>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="display:flex;gap:10px;font-size:14px;line-height:20px"><span style="font-family:'Space Mono',monospace;font-weight:700;font-size:13px;color:#1E4D3F">1</span>Rendición de cuentas del primer semestre.</span>
+              <span style="display:flex;gap:10px;font-size:14px;line-height:20px"><span style="font-family:'Space Mono',monospace;font-weight:700;font-size:13px;color:#1E4D3F">2</span>Renovación del contrato de limpieza.</span>
+              <span style="display:flex;gap:10px;font-size:14px;line-height:20px"><span style="font-family:'Space Mono',monospace;font-weight:700;font-size:13px;color:#1E4D3F">3</span>Uso de espacios comunes: mascotas y horarios.</span>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;border-top:1px dashed #E5E1D8;padding-top:16px">
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.06em;color:#8A928D">QUÓRUM</span>
+            <sc-if value="{{ qBase }}" hint-placeholder-val="{{ true }}">
+              <div style="height:6px;border-radius:3px;background:#E8E6DF;position:relative;overflow:hidden">
+                <div style="position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:#1E4D3F;width:58%"></div>
+              </div>
+              <span style="font-size:13px;color:#5C6660"><span style="font-family:'Space Mono',monospace;font-weight:700;font-size:12.5px;color:#1C2B26">14 de 24</span> unidades confirmaron · <span style="color:#17603B;font-weight:600">quórum alcanzado</span></span>
+            </sc-if>
+            <sc-if value="{{ qDinamico }}" hint-placeholder-val="{{ false }}">
+              <div style="height:6px;border-radius:3px;background:#E8E6DF;position:relative;overflow:hidden">
+                <div style="position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:{{ barColor }};width:{{ barPct }}"></div>
+              </div>
+              <span style="font-size:13px;color:#5C6660"><span style="font-family:'Space Mono',monospace;font-weight:700;font-size:12.5px;color:#1C2B26">{{ confTexto }}</span> unidades confirmaron · <span style="font-weight:600;color:{{ quorumEstadoColor }}">{{ quorumEstado }}</span></span>
+            </sc-if>
+          </div>
+
+        </div>
+      </div>
+
+      <div data-screen-label="Acta de la última asamblea" style="background:#FFFFFF;border:1px solid #E5E1D8;border-radius:10px;padding:36px 40px;position:relative">
+        <sc-if value="{{ actaBorrador }}" hint-placeholder-val="{{ true }}">
+          <span style="position:absolute;top:26px;right:26px;transform:rotate(-5deg);border:1.5px solid #92600A;color:#92600A;font-size:11px;font-weight:600;letter-spacing:0.12em;padding:5px 12px;border-radius:4px">BORRADOR</span>
+        </sc-if>
+        <sc-if value="{{ actaEnviadaVal }}" hint-placeholder-val="{{ false }}">
+          <span style="position:absolute;top:26px;right:26px;transform:rotate(-5deg);border:1.5px solid #1E4D3F;color:#1E4D3F;font-size:11px;font-weight:600;letter-spacing:0.12em;padding:5px 12px;border-radius:4px;animation:vtnfade 0.3s ease">ENVIADA</span>
+        </sc-if>
+
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center">
+          <span style="font-size:11px;font-weight:600;letter-spacing:0.08em;color:#8A928D">CONSORCIO YERBAL 1240 · CIUDAD AUTÓNOMA DE BUENOS AIRES</span>
+          <h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;line-height:28px">Acta N° 47 · Asamblea extraordinaria</h2>
+          <span style="font-family:'Space Mono',monospace;font-size:12px;color:#8A928D">2 de julio de 2026 · 19:04 a 20:38 · SUM y virtual</span>
+        </div>
+
+        <div style="border-top:1px dashed #E5E1D8;margin:20px 0"></div>
+
+        <p style="margin:0 0 12px;font-size:14px;line-height:22px;text-align:justify">En la Ciudad Autónoma de Buenos Aires, a los 2 días del mes de julio de 2026, siendo las 19:04, se reúnen en asamblea extraordinaria los propietarios del edificio de la calle Yerbal 1240, en el salón de usos múltiples de planta baja y por videollamada, convocados por Administración Iribarne.</p>
+        <p style="margin:0 0 20px;font-size:14px;line-height:22px;text-align:justify">Preside la asamblea la Sra. Marta Gorosito (5°B). Actúa como secretario de actas el Sr. Roberto Etcheverry (2°A). Con 16 unidades funcionales presentes sobre 24 —10 en el salón y 6 conectadas— se declara válida la sesión en primera convocatoria.</p>
+
+        <span style="display:block;font-size:11px;font-weight:600;letter-spacing:0.08em;color:#8A928D;margin-bottom:12px">ORDEN DEL DÍA Y RESOLUCIONES</span>
+
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div>
+            <span style="font-size:14px;font-weight:600;line-height:20px">1. Impermeabilización de la terraza y filtraciones asociadas.</span>
+            <p style="margin:4px 0 6px;font-size:14px;line-height:21px;color:#5C6660;text-align:justify">Presentados tres presupuestos, se aprueba el de Techados Camet por <span style="font-family:'Space Mono',monospace;font-size:13px;color:#1C2B26">$ 4.850.000</span>, pagadero en tres cuotas por expensas extraordinarias. La obra comienza la semana del 20 de julio.</p>
+            <span style="font-family:'Space Mono',monospace;font-size:12px;color:#1E4D3F">12 a favor · 3 en contra · 1 abstención</span>
+          </div>
+          <div>
+            <span style="font-size:14px;font-weight:600;line-height:20px">2. Actualización del fondo de reserva.</span>
+            <p style="margin:4px 0 6px;font-size:14px;line-height:21px;color:#5C6660;text-align:justify">Se aprueba llevar el fondo de reserva del 5 al 8 por ciento del presupuesto mensual, a partir de la liquidación de agosto.</p>
+            <span style="font-family:'Space Mono',monospace;font-size:12px;color:#1E4D3F">14 a favor · 2 en contra</span>
+          </div>
+          <div>
+            <span style="font-size:14px;font-weight:600;line-height:20px">3. Varios.</span>
+            <p style="margin:4px 0 0;font-size:14px;line-height:21px;color:#5C6660;text-align:justify">El 3°A solicita la reparación de la puerta del ascensor de su piso. Queda registrado como reclamo <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:12.5px;color:#1E4D3F">R-1032</span>. Sin más temas que tratar, siendo las 20:38 se levanta la sesión.</p>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px">
+          <div style="border-top:1px dotted #8A928D;padding-top:8px;display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:13px;font-weight:600">Marta Gorosito</span>
+            <span style="font-size:11px;color:#8A928D">Presidenta de asamblea</span>
+          </div>
+          <div style="border-top:1px dotted #8A928D;padding-top:8px;display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:13px;font-weight:600">Roberto Etcheverry</span>
+            <span style="font-size:11px;color:#8A928D">Secretario de actas</span>
+          </div>
+          <div style="border-top:1px dotted #8A928D;padding-top:8px;display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:13px;font-weight:600">Carla Méndez</span>
+            <span style="font-size:11px;color:#8A928D">Administración Iribarne</span>
+          </div>
+        </div>
+      </div>
+
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+      <div data-screen-label="Ingresantes" style="background:#FFFFFF;border:1px solid #E5E1D8;border-radius:10px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px 14px;border-bottom:1px solid #F0EDE6">
+          <h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:19px;line-height:26px">Ingresantes</h2>
+          <span style="font-family:'Space Mono',monospace;font-weight:700;font-size:14px;color:#1E4D3F"><sc-if value="{{ qBase }}" hint-placeholder-val="{{ true }}">14/24</sc-if><sc-if value="{{ qDinamico }}" hint-placeholder-val="{{ false }}">{{ conteoCorto }}</sc-if></span>
+        </div>
+
+        <sc-for list="{{ nuevas }}" as="n" hint-placeholder-count="0">
+          <div style="display:flex;align-items:center;gap:12px;padding:11px 20px;border-bottom:1px solid #F0EDE6;animation:vtnfade 0.3s ease">
+            <span style="width:46px;min-width:46px;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;color:#5C6660">{{ n.uf }}</span>
+            <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+              <span style="font-size:14px;font-weight:500;line-height:19px">{{ n.nombre }}</span>
+              <span style="font-size:12px;color:#8A928D">{{ n.unidad }}</span>
+            </span>
+            <span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+              <sc-if value="{{ n.virtual }}" hint-placeholder-val="{{ false }}"><span style="background:#E3EDE7;color:#1E4D3F;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:3px 8px;border-radius:4px">VIRTUAL</span></sc-if>
+              <sc-if value="{{ n.pres }}" hint-placeholder-val="{{ false }}"><span style="background:#EEF1EF;color:#3F4A45;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:3px 8px;border-radius:4px">PRESENCIAL</span></sc-if>
+              <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8A928D">{{ n.hora }}</span>
+            </span>
+          </div>
+        </sc-for>
+
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 20px;border-bottom:1px solid #F0EDE6">
+          <span style="width:46px;min-width:46px;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;color:#5C6660">UF 11</span>
+          <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:14px;font-weight:500;line-height:19px">Marta Gorosito</span>
+            <span style="font-size:12px;color:#8A928D">5°B</span>
+          </span>
+          <span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+            <span style="background:#E3EDE7;color:#1E4D3F;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:3px 8px;border-radius:4px">VIRTUAL</span>
+            <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8A928D">hace 2 h</span>
+          </span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 20px;border-bottom:1px solid #F0EDE6">
+          <span style="width:46px;min-width:46px;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;color:#5C6660">UF 04</span>
+          <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:14px;font-weight:500;line-height:19px">Roberto Etcheverry</span>
+            <span style="font-size:12px;color:#8A928D">2°A</span>
+          </span>
+          <span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+            <span style="background:#EEF1EF;color:#3F4A45;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:3px 8px;border-radius:4px">PRESENCIAL</span>
+            <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8A928D">hace 3 h</span>
+          </span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 20px;border-bottom:1px solid #F0EDE6">
+          <span style="width:46px;min-width:46px;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;color:#5C6660">UF 15</span>
+          <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:14px;font-weight:500;line-height:19px">Diego Lamas</span>
+            <span style="font-size:12px;color:#8A928D">7°B</span>
+          </span>
+          <span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+            <span style="background:#E3EDE7;color:#1E4D3F;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:3px 8px;border-radius:4px">VIRTUAL</span>
+            <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8A928D">ayer</span>
+          </span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 20px;border-bottom:1px solid #F0EDE6">
+          <span style="width:46px;min-width:46px;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;color:#5C6660">UF 09</span>
+          <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:14px;font-weight:500;line-height:19px">Silvia Paredes</span>
+            <span style="font-size:12px;color:#8A928D">4°C</span>
+          </span>
+          <span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+            <span style="background:#EEF1EF;color:#3F4A45;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:3px 8px;border-radius:4px">PRESENCIAL</span>
+            <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8A928D">ayer</span>
+          </span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 20px;border-bottom:1px solid #F0EDE6">
+          <span style="width:46px;min-width:46px;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;color:#5C6660">UF 02</span>
+          <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:14px;font-weight:500;line-height:19px">Nélida Ferrero</span>
+            <span style="font-size:12px;color:#8A928D">1°C</span>
+          </span>
+          <span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+            <span style="background:#EEF1EF;color:#3F4A45;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:3px 8px;border-radius:4px">PRESENCIAL</span>
+            <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8A928D">ayer</span>
+          </span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 20px;border-bottom:1px solid #F0EDE6">
+          <span style="width:46px;min-width:46px;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;color:#5C6660">UF 21</span>
+          <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:14px;font-weight:500;line-height:19px">Andrés Bruzzone</span>
+            <span style="font-size:12px;color:#8A928D">8°A</span>
+          </span>
+          <span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+            <span style="background:#E3EDE7;color:#1E4D3F;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:3px 8px;border-radius:4px">VIRTUAL</span>
+            <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8A928D">lunes</span>
+          </span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 20px;border-bottom:1px solid #F0EDE6">
+          <span style="width:46px;min-width:46px;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;color:#5C6660">UF 07</span>
+          <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:14px;font-weight:500;line-height:19px">Graciela Ponte</span>
+            <span style="font-size:12px;color:#8A928D">3°B</span>
+          </span>
+          <span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+            <span style="background:#EEF1EF;color:#3F4A45;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:3px 8px;border-radius:4px">PRESENCIAL</span>
+            <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8A928D">lunes</span>
+          </span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 20px">
+          <span style="width:46px;min-width:46px;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;color:#5C6660">UF 18</span>
+          <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:14px;font-weight:500;line-height:19px">Federico Sain</span>
+            <span style="font-size:12px;color:#8A928D">6°B</span>
+          </span>
+          <span style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+            <span style="background:#E3EDE7;color:#1E4D3F;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:3px 8px;border-radius:4px">VIRTUAL</span>
+            <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8A928D">lunes</span>
+          </span>
+        </div>
+
+        <div style="padding:12px 20px;border-top:1px solid #F0EDE6">
+          <span style="display:block;font-size:12px;color:#8A928D;margin-bottom:6px"><sc-if value="{{ qBase }}" hint-placeholder-val="{{ true }}">y 6 unidades más confirmaron · faltan responder 10</sc-if><sc-if value="{{ qDinamico }}" hint-placeholder-val="{{ false }}">{{ ingresantesResumen }}</sc-if></span>
+          <span style="display:block;font-size:12px;color:#8A928D">El listado se arma solo con las respuestas por WhatsApp a la convocatoria.</span>
+        </div>
+      </div>
+
+      <div data-screen-label="Estado del acta" style="background:#FFFFFF;border:1px solid #E5E1D8;border-radius:10px;padding:20px">
+        <h2 style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:19px;line-height:26px">Estado del acta</h2>
+        <div style="display:grid;grid-template-columns:104px 1fr;row-gap:11px;column-gap:12px;align-items:baseline">
+          <span style="font-size:11px;font-weight:600;letter-spacing:0.06em;color:#8A928D">ESTADO</span>
+          <span><sc-if value="{{ actaBorrador }}" hint-placeholder-val="{{ true }}"><span style="background:#FDF0DC;color:#92600A;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:4px 10px;border-radius:4px">BORRADOR</span></sc-if><sc-if value="{{ actaEnviadaVal }}" hint-placeholder-val="{{ false }}"><span style="background:#DCEFE2;color:#17603B;font-size:11px;font-weight:600;letter-spacing:0.08em;padding:4px 10px;border-radius:4px">ENVIADA</span></sc-if></span>
+          <span style="font-size:11px;font-weight:600;letter-spacing:0.06em;color:#8A928D">ASAMBLEA</span>
+          <span style="font-size:14px;line-height:20px">Extraordinaria · 2 de julio</span>
+          <span style="font-size:11px;font-weight:600;letter-spacing:0.06em;color:#8A928D">GENERADA</span>
+          <span style="font-family:'Space Mono',monospace;font-size:13px;line-height:20px">2 jul 21:03</span>
+          <span style="font-size:11px;font-weight:600;letter-spacing:0.06em;color:#8A928D">ORIGEN</span>
+          <span style="font-size:14px;line-height:20px">Grabación de la asamblea y votaciones registradas</span>
+          <span style="font-size:11px;font-weight:600;letter-spacing:0.06em;color:#8A928D">ASISTENCIA</span>
+          <span style="font-size:14px;line-height:20px">16 de 24 unidades</span>
+        </div>
+        <p style="margin:14px 0 16px;font-size:12px;line-height:18px;color:#8A928D">El borrador se arma solo al cierre de la asamblea. Revisalo antes de enviarlo.</p>
+        <sc-if value="{{ actaBorrador }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ enviarActa }}" style="width:100%;height:40px;border:none;border-radius:8px;background:#1E4D3F;color:#FFFFFF;font-family:'Public Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer" style-hover="background:#16382E">Enviar a los vecinos</button>
+        </sc-if>
+        <sc-if value="{{ actaEnviadaVal }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:40px;border-radius:8px;background:#DCEFE2;animation:vtnfade 0.3s ease">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#17603B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+            <span style="font-size:13px;font-weight:600;color:#17603B">Enviada a las 24 unidades por WhatsApp</span>
+          </div>
+        </sc-if>
+        <button onClick="{{ copiarActa }}" style="width:100%;height:40px;margin-top:8px;border:1px solid #E5E1D8;border-radius:8px;background:#FFFFFF;color:#1C2B26;font-family:'Public Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer" style-hover="background:#F7F5F0"><sc-if value="{{ actaNoCopiada }}" hint-placeholder-val="{{ true }}">Copiar texto</sc-if><sc-if value="{{ actaCopiada }}" hint-placeholder-val="{{ false }}">Copiado</sc-if></button>
+      </div>
+
+      </div>
+
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;quorumAlcanzado&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Asamblea&quot;},&quot;simularConfirmacion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
+class Component extends DCLogic {
+  state = { copiadoLink: false, copiadoActa: false, enviada: false, nuevas: [] };
+
+  componentDidMount() { this.armarSimulacion(); }
+  componentDidUpdate(prevProps) {
+    if (this.props.simularConfirmacion && !(prevProps && prevProps.simularConfirmacion)) this.armarSimulacion();
+  }
+  componentWillUnmount() {
+    if (this._t) clearTimeout(this._t);
+    if (this._c1) clearTimeout(this._c1);
+    if (this._c2) clearTimeout(this._c2);
+  }
+
+  armarSimulacion() {
+    if (!this.props.simularConfirmacion || this._t || this.state.nuevas.length > 0) return;
+    this._t = setTimeout(() => {
+      this.setState({ nuevas: [{ uf: 'UF 12', nombre: 'Estela Quiroga', unidad: '5°A', virtual: true, pres: false, hora: 'recién' }] });
+    }, 3000);
+  }
+
+  copiarTexto(txt) {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txt); return; }
+    } catch (e) {}
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = txt;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    } catch (e) {}
+  }
+
+  textoActa() {
+    return [
+      'ACTA N° 47 · ASAMBLEA EXTRAORDINARIA',
+      'Consorcio Yerbal 1240 · Ciudad Autónoma de Buenos Aires',
+      '2 de julio de 2026 · 19:04 a 20:38 · SUM y virtual',
+      '',
+      'En la Ciudad Autónoma de Buenos Aires, a los 2 días del mes de julio de 2026, siendo las 19:04, se reúnen en asamblea extraordinaria los propietarios del edificio de la calle Yerbal 1240, en el salón de usos múltiples de planta baja y por videollamada, convocados por Administración Iribarne.',
+      'Preside la asamblea la Sra. Marta Gorosito (5°B). Actúa como secretario de actas el Sr. Roberto Etcheverry (2°A). Con 16 unidades funcionales presentes sobre 24 —10 en el salón y 6 conectadas— se declara válida la sesión en primera convocatoria.',
+      '',
+      'ORDEN DEL DÍA Y RESOLUCIONES',
+      '1. Impermeabilización de la terraza y filtraciones asociadas. Presentados tres presupuestos, se aprueba el de Techados Camet por $ 4.850.000, pagadero en tres cuotas por expensas extraordinarias. La obra comienza la semana del 20 de julio. 12 a favor · 3 en contra · 1 abstención.',
+      '2. Actualización del fondo de reserva. Se aprueba llevar el fondo de reserva del 5 al 8 por ciento del presupuesto mensual, a partir de la liquidación de agosto. 14 a favor · 2 en contra.',
+      '3. Varios. El 3°A solicita la reparación de la puerta del ascensor de su piso. Queda registrado como reclamo R-1032. Sin más temas que tratar, siendo las 20:38 se levanta la sesión.',
+      '',
+      'Marta Gorosito · Presidenta de asamblea',
+      'Roberto Etcheverry · Secretario de actas',
+      'Carla Méndez · Administración Iribarne'
+    ].join('\n');
+  }
+
+  renderVals() {
+    const s = this.state;
+    const quorum = this.props.quorumAlcanzado ?? true;
+    const conf = (quorum ? 14 : 11) + s.nuevas.length;
+    const qBase = quorum && s.nuevas.length === 0;
+    const ok = conf >= 13;
+    const mas = conf - 8 - s.nuevas.length;
+    const faltan = 24 - conf;
+    const faltanQ = 13 - conf;
+    return {
+      qBase: qBase,
+      qDinamico: !qBase,
+      confTexto: conf + ' de 24',
+      conteoCorto: conf + '/24',
+      barPct: Math.round((conf / 24) * 100) + '%',
+      barColor: ok ? '#1E4D3F' : '#C97A10',
+      quorumEstado: ok ? 'quórum alcanzado' : 'faltan ' + faltanQ + (faltanQ === 1 ? ' unidad' : ' unidades') + ' para el quórum',
+      quorumEstadoColor: ok ? '#17603B' : '#92600A',
+      ingresantesResumen: (mas > 0 ? 'y ' + mas + (mas === 1 ? ' unidad más confirmó' : ' unidades más confirmaron') + ' · ' : '') + 'faltan responder ' + faltan,
+      nuevas: s.nuevas,
+      linkNormal: !s.copiadoLink,
+      linkCopiado: s.copiadoLink,
+      copiarLink: () => {
+        this.copiarTexto('reunion.ventanilla.ar/yerbal-1240');
+        this.setState({ copiadoLink: true });
+        if (this._c1) clearTimeout(this._c1);
+        this._c1 = setTimeout(() => this.setState({ copiadoLink: false }), 2000);
+      },
+      actaBorrador: !s.enviada,
+      actaEnviadaVal: s.enviada,
+      enviarActa: () => this.setState({ enviada: true }),
+      actaNoCopiada: !s.copiadoActa,
+      actaCopiada: s.copiadoActa,
+      copiarActa: () => {
+        this.copiarTexto(this.textoActa());
+        this.setState({ copiadoActa: true });
+        if (this._c2) clearTimeout(this._c2);
+        this._c2 = setTimeout(() => this.setState({ copiadoActa: false }), 2000);
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
