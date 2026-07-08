@@ -358,6 +358,7 @@ export type Database = {
           contenido: string | null;
           transcripcion: string | null;
           media_path: string | null;
+          wa_message_id: string | null;
           is_seed: boolean;
           created_at: string;
         };
@@ -370,6 +371,7 @@ export type Database = {
           contenido?: string | null;
           transcripcion?: string | null;
           media_path?: string | null;
+          wa_message_id?: string | null;
           is_seed?: boolean;
           created_at?: string;
         };
@@ -382,6 +384,7 @@ export type Database = {
           contenido?: string | null;
           transcripcion?: string | null;
           media_path?: string | null;
+          wa_message_id?: string | null;
           is_seed?: boolean;
           created_at?: string;
         };
@@ -690,6 +693,47 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "counters_administration_id_fkey";
+            columns: ["administration_id"];
+            isOneToOne: false;
+            referencedRelation: "administrations";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      wa_sessions: {
+        Row: {
+          id: string;
+          administration_id: string;
+          telefono: string;
+          paso: string;
+          datos: Json;
+          ultimo_wamid: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          administration_id: string;
+          telefono: string;
+          paso: string;
+          datos?: Json;
+          ultimo_wamid?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          administration_id?: string;
+          telefono?: string;
+          paso?: string;
+          datos?: Json;
+          ultimo_wamid?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "wa_sessions_administration_id_fkey";
             columns: ["administration_id"];
             isOneToOne: false;
             referencedRelation: "administrations";

@@ -87,6 +87,40 @@ Otros comandos: `pnpm db:verify`, `pnpm db:down`, `pnpm db:reset`.
   `ELEVENLABS_API_KEY`, el player del detalle queda en modo simulado,
   como el prototipo.
 
+## WhatsApp (env-gated)
+
+El adaptador de WhatsApp Cloud API vive en `app/api/whatsapp/webhook` y
+`lib/whatsapp/`. Sin las variables `WHATSAPP_*` el webhook responde 200 y no
+hace nada: la demo no depende de WhatsApp.
+
+- **Vecino registrado** (teléfono en `residents`): cada mensaje corre el
+  pipeline real — clasificación, número de seguimiento, confirmación por
+  WhatsApp. Los audios se transcriben con ElevenLabs Scribe (si hay
+  `ELEVENLABS_API_KEY`; si no, se le pide el texto al vecino) y las fotos
+  van a Storage: con texto abren un reclamo nuevo, solas se adjuntan al
+  reclamo de la última media hora.
+- **Número desconocido**: alta conversacional (edificio → unidad → nombre,
+  máquina de estados en `lib/whatsapp/onboarding.ts`, estado en
+  `wa_sessions`). Si el primer mensaje ya era el reclamo, se registra
+  apenas termina el alta. El vecino queda `verificado` por el propio alta.
+- **Salientes solo para origen whatsapp**: la respuesta desde el panel se
+  manda por WhatsApp únicamente si el reclamo llegó por ese canal; los del
+  simulador jamás disparan mensajes. Los reintentos del webhook se
+  descartan por `wa_message_id` (mensajes) y `ultimo_wamid` (onboarding).
+
+Para encenderlo: en [developers.facebook.com](https://developers.facebook.com)
+crear una app Business con el producto WhatsApp, tomar el token y el
+`PHONE_NUMBER_ID` del número de prueba, definir un `WHATSAPP_VERIFY_TOKEN`
+propio y suscribir el webhook a `https://<dominio>/api/whatsapp/webhook`
+(campo `messages`). `WHATSAPP_APP_SECRET` (opcional) valida la firma de
+cada POST.
+
+Pendientes de Meta para producción (fuera de Fase 0): verificación del
+negocio, un número propio (el de prueba solo escribe a 5 números
+registrados), token permanente de system user, y plantillas aprobadas para
+escribir fuera de la ventana de 24 horas — dentro de la ventana el texto
+libre alcanza.
+
 ## Decisiones
 
 Resueltas contra `design-reference/` cuando el prototipo era ambiguo o
@@ -177,8 +211,9 @@ inconsistente; acá quedan para no re-litigarlas.
 app/                    rutas (App Router)
 components/             componentes de interfaz
 design-reference/       export de Claude Design: fuente de verdad visual
-lib/                    dominio, entorno y clientes de Supabase
+lib/                    dominio, pipeline, whatsapp, entorno y clientes de Supabase
 scripts/                verificación local de la base y seeds auxiliares
-supabase/migrations/    schema, numeración, RLS, Realtime, Storage
+supabase/migrations/    schema, numeración, RLS, Realtime, Storage, demo, whatsapp
 supabase/seed/          seed.sql del tenant demo + assets + stub local
+supabase/setup-completo.sql  todo lo anterior en un archivo para el SQL Editor
 ```

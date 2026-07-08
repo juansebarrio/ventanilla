@@ -1,5 +1,6 @@
 "use server";
 
+import { env } from "@/lib/env";
 import { type Estado, ESTADO_LABELS } from "@/lib/domain/claims";
 import {
   aplicarTransicion,
@@ -9,6 +10,7 @@ import {
 } from "@/lib/pipeline";
 import { requireMiembro } from "@/lib/data/tenant";
 import { resumenUnidad } from "@/lib/domain/format";
+import { enviarTextoWhatsApp } from "@/lib/whatsapp/api";
 import type { TablesUpdate } from "@/lib/supabase/database.types";
 import type { Resultado } from "@/lib/panel/tipos";
 
@@ -45,10 +47,19 @@ export async function responder(
   if (!limpio) return { ok: false, error: "El mensaje está vacío." };
 
   const { supabase, administrationId } = await requireMiembro();
+
+  const { data: claim } = await supabase
+    .from("claims")
+    .select("id, origen, resident_id")
+    .eq("id", claimId)
+    .eq("administration_id", administrationId)
+    .maybeSingle();
+  if (!claim) return { ok: false, error: "No se encontró el reclamo." };
+
   const ahora = new Date().toISOString();
   const { error } = await supabase.from("claim_messages").insert({
     administration_id: administrationId,
-    claim_id: claimId,
+    claim_id: claim.id,
     direccion: "salida",
     tipo: "texto",
     contenido: limpio,
@@ -56,7 +67,31 @@ export async function responder(
   });
   if (error) return { ok: false, error: "No se pudo enviar la respuesta." };
 
-  await supabase.from("claims").update({ ultima_actividad_at: ahora }).eq("id", claimId);
+  await supabase.from("claims").update({ ultima_actividad_at: ahora }).eq("id", claim.id);
+
+  // Salientes solo para reclamos que llegaron por WhatsApp (env-gated); los
+  // del simulador jamás disparan mensajes. Best-effort: si el envío falla,
+  // la respuesta queda en el timeline y el fallo se anota como evento.
+  if (claim.origen === "whatsapp" && claim.resident_id && env.whatsapp) {
+    const { data: vecino } = await supabase
+      .from("residents")
+      .select("telefono")
+      .eq("id", claim.resident_id)
+      .maybeSingle();
+    if (vecino) {
+      const enviado = await enviarTextoWhatsApp(vecino.telefono, limpio);
+      if (!enviado) {
+        await supabase.from("claim_events").insert({
+          administration_id: administrationId,
+          claim_id: claim.id,
+          tipo: "nota",
+          texto: "No se pudo enviar la respuesta por WhatsApp",
+          actor: "Sistema",
+          created_at: new Date().toISOString(),
+        });
+      }
+    }
+  }
   return { ok: true };
 }
 

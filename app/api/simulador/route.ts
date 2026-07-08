@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import { env } from "@/lib/env";
 import { TZ_AR } from "@/lib/domain/format";
-import { redactarRespuestaVecino } from "@/lib/mensajes";
-import { clasificar } from "@/lib/pipeline";
+import { registrarReclamo } from "@/lib/pipeline";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
 /*
@@ -126,103 +125,22 @@ export async function POST(req: Request) {
     if (!edificio) throw new Error("Sin edificio del simulador");
 
     // ── Pipeline real ──────────────────────────────────────────────────────
-    const clasificacion = await clasificar(texto, {
-      edificioNombre: edificio.direccion,
+    const registro = await registrarReclamo(supabase, {
+      administrationId: admin.id,
+      edificio,
+      origen: "simulador",
+      texto,
+      tipoEntrada: "texto",
       preferirFallback,
     });
 
-    const { data: categoria } = await supabase
-      .from("categories")
-      .select("id, nombre")
-      .eq("administration_id", admin.id)
-      .eq("nombre", clasificacion.categoria)
-      .maybeSingle();
-
-    const creado = new Date();
-    const { data: claim, error: errorClaim } = await supabase
-      .from("claims")
-      .insert({
-        administration_id: admin.id,
-        titulo: clasificacion.resumen,
-        categoria_id: categoria?.id ?? null,
-        urgencia: clasificacion.urgencia,
-        ambito: clasificacion.ambito,
-        estado: "recibido",
-        building_id: edificio.id,
-        origen: "simulador",
-        created_at: creado.toISOString(),
-        ultima_actividad_at: creado.toISOString(),
-      })
-      .select("id, numero_publico")
-      .single();
-    if (errorClaim || !claim) throw errorClaim ?? new Error("Insert de claim falló");
-
-    const mensaje = redactarRespuestaVecino({
-      numeroPublico: claim.numero_publico,
-      edificioNombre: edificio.direccion,
-      categoria: clasificacion.categoria,
-      urgencia: clasificacion.urgencia,
-      emergencia: clasificacion.emergencia,
-    });
-
-    const respondido = new Date();
-    const ambitoLabel = clasificacion.ambito === "comun" ? "común" : "privado";
-    const urgenciaLabel =
-      clasificacion.urgencia.charAt(0).toUpperCase() + clasificacion.urgencia.slice(1);
-
-    await Promise.all([
-      supabase.from("claim_messages").insert([
-        {
-          administration_id: admin.id,
-          claim_id: claim.id,
-          direccion: "entrada",
-          tipo: "texto",
-          contenido: texto,
-          created_at: creado.toISOString(),
-        },
-        {
-          administration_id: admin.id,
-          claim_id: claim.id,
-          direccion: "salida",
-          tipo: "texto",
-          contenido: mensaje,
-          created_at: respondido.toISOString(),
-        },
-      ]),
-      supabase.from("claim_events").insert([
-        {
-          administration_id: admin.id,
-          claim_id: claim.id,
-          tipo: "alta",
-          texto: "Nuevo reclamo",
-          actor: "Sistema",
-          created_at: creado.toISOString(),
-        },
-        {
-          administration_id: admin.id,
-          claim_id: claim.id,
-          tipo: "clasificacion",
-          texto: `Clasificado: ${clasificacion.categoria} · ${urgenciaLabel} · Ámbito ${ambitoLabel}`,
-          actor: "Sistema",
-          created_at: new Date(creado.getTime() + 1000).toISOString(),
-        },
-      ]),
-      supabase
-        .from("claims")
-        .update({
-          primera_respuesta_at: respondido.toISOString(),
-          ultima_actividad_at: respondido.toISOString(),
-        })
-        .eq("id", claim.id),
-    ]);
-
     return NextResponse.json({
       ok: true,
-      numero: claim.numero_publico,
-      resumen: clasificacion.resumen,
-      categoria: clasificacion.categoria,
-      urgencia: clasificacion.urgencia,
-      mensaje,
+      numero: registro.numero,
+      resumen: registro.resumen,
+      categoria: registro.categoria,
+      urgencia: registro.urgencia,
+      mensaje: registro.mensaje,
     });
   } catch {
     return NextResponse.json({ ok: false, error: MENSAJE_ERROR }, { status: 503 });
